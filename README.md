@@ -4,6 +4,9 @@ VeriFact Intake turns messy business documents into evidence-linked ontology
 facts. It combines deterministic document extraction, normalized assertions,
 conflict detection, human review, and a replayable audit trail.
 
+[![CI](https://github.com/owenshuo/verifact-intake/actions/workflows/ci.yml/badge.svg)](https://github.com/owenshuo/verifact-intake/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+
 This repository is a new project for the DevNetwork API + Cloud + AI Hackathon
 2026, targeting the **Nutrient DWS Challenge**. It is informed by prior work on
 quality-operations ontologies, but contains only new, public-safe code and
@@ -11,7 +14,29 @@ synthetic data created for this event.
 
 ![VeriFact Intake trust pipeline](docs/assets/verifact-hero.png)
 
-## The trust boundary
+## Judge it in two minutes
+
+With Docker installed:
+
+```bash
+git clone https://github.com/owenshuo/verifact-intake.git
+cd verifact-intake
+docker compose up --build
+```
+
+Open <http://localhost:8080>, choose **Run trusted intake**, resolve the four
+review items, and export the resulting ontology. No API key is required for the
+default replayable fixture run.
+
+**Demo video:** the final public link will be added after the controlled Live
+DWS recording. The [two-minute walkthrough](docs/DEMO.md) and
+[recording script](docs/VIDEO_SCRIPT.md) are already available.
+
+## The trust architecture
+
+![VeriFact Intake architecture: Nutrient extraction, assertions, trust policy, review, effective facts, and audit proof](docs/assets/verifact-trust-architecture.svg)
+
+The central invariant is **Assertion ≠ EffectiveFact**:
 
 ```text
 Source document
@@ -26,6 +51,14 @@ Source document
 An extracted statement is never treated as truth merely because an AI or a
 document parser produced it. Every effective fact must retain its source
 evidence and promotion history.
+
+## Product walkthrough
+
+| Conflict and review workspace | Resolved ontology facts |
+| --- | --- |
+| ![Conflicting evidence waiting for human review](docs/assets/verifact-review-workspace.png) | ![All reviews resolved and nine effective facts promoted](docs/assets/verifact-resolved-proof.png) |
+
+![Verified append-only audit ledger](docs/assets/verifact-audit-proof.png)
 
 ## What works now
 
@@ -47,18 +80,6 @@ The default mode is a fully replayable fixture run so judges can reproduce the
 story without credentials. Nutrient mode reads a validated DWS response cache
 first. A cache miss reaches the real API only when `NUTRIENT_LIVE_MODE=true` is
 set explicitly.
-
-## One-command demo
-
-With Docker installed:
-
-```bash
-docker compose up --build
-```
-
-Open <http://localhost:8080>, choose **Run trusted intake**, compare the
-conflicting claims, and select the normative evidence. The ontology and audit
-export is available from the workspace header.
 
 ## Local setup
 

@@ -7,6 +7,8 @@ versioned ontology fact. The application is intentionally smaller than the
 long-running ontology platform: it keeps the trust semantics and removes
 infrastructure that does not improve this demo.
 
+![VeriFact Intake trust architecture](assets/verifact-trust-architecture.svg)
+
 ## Components
 
 1. **Web/API** — upload synthetic PDFs, run intake, review uncertain claims,
