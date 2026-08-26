@@ -238,7 +238,7 @@ DOCUMENTS = (
         ),
         summary=(
             "This document is the authoritative contract for Atlas Change Service endpoints. "
-            "The service base path is <b>/change-api</b>."
+            "The service base path is /change-api."
         ),
         sections=(
             Section(
@@ -251,17 +251,20 @@ DOCUMENTS = (
             ),
             Section(
                 title="Create change",
-                paragraphs=("<b>POST /v2/changes</b> creates a new change request.",),
+                paragraphs=(
+                    "The create-change operation uses the POST method.",
+                    "The create-change relative path is /v2/changes.",
+                ),
                 bullets=(
-                    "The <b>Idempotency-Key</b> header is required.",
-                    "Synchronous validation timeout is <b>30 seconds</b>.",
+                    "The Idempotency-Key header is required.",
+                    "Synchronous validation timeout is 30 seconds.",
                     "A successful request returns HTTP 202.",
                 ),
             ),
             Section(
                 title="Get change",
                 paragraphs=(
-                    "<b>GET /v2/changes/{changeId}</b> returns the latest workflow state.",
+                    "GET /v2/changes/{changeId} returns the latest workflow state.",
                 ),
                 rows=(
                     ("States", "DRAFT, PENDING_APPROVAL, SCHEDULED, RUNNING, SUCCEEDED, FAILED"),
@@ -287,27 +290,27 @@ DOCUMENTS = (
             Section(
                 title="Ownership",
                 paragraphs=(
-                    "The Atlas Change Service is operated by the <b>Network Operations</b> team.",
+                    "The Atlas Change Service is operated by the Network Operations team.",
                 ),
             ),
             Section(
                 title="Creating a change",
                 paragraphs=(
-                    "Operators create a change with <b>PUT /v2/changes</b>. "
+                    "The legacy guide describes PUT as the create-change HTTP method. "
                     "The client retries once if the request times out.",
                 ),
             ),
             Section(
                 title="High-risk workflow",
                 paragraphs=(
-                    "<b>One</b> duty manager approval is sufficient before a high-risk "
+                    "One duty manager approval is sufficient before a high-risk "
                     "change is scheduled.",
                 ),
             ),
             Section(
                 title="Evidence retention",
                 paragraphs=(
-                    "Execution evidence is retained for <b>90 days</b> after the change completes.",
+                    "Execution evidence is retained for 90 days after the change completes.",
                 ),
             ),
             Section(
@@ -336,7 +339,7 @@ DOCUMENTS = (
             Section(
                 title="Approval control",
                 paragraphs=(
-                    "Every high-risk change requires <b>two independent approvals</b> "
+                    "Every high-risk change requires two independent approvals "
                     "before scheduling.",
                     "The requester cannot approve the same change.",
                 ),
@@ -345,14 +348,14 @@ DOCUMENTS = (
                 title="Evidence retention",
                 paragraphs=(
                     "Change plans, approvals, execution logs, and verification results must be "
-                    "retained for <b>180 days</b> after completion.",
+                    "retained for 180 days after completion.",
                 ),
             ),
             Section(
                 title="Verification",
                 paragraphs=(
-                    "A change can enter <b>SUCCEEDED</b> only after the post-change "
-                    "verification suite passes.",
+                    "Post-change verification is required before a change can be marked "
+                    "successful.",
                     "A failed verification moves the change to FAILED and requires an "
                     "incident reference.",
                 ),

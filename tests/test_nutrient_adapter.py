@@ -42,3 +42,19 @@ async def test_nutrient_adapter_posts_document_and_maps_blocks(tmp_path: Path) -
     assert result.blocks[0].page == 1
     assert result.blocks[0].text.startswith("POST")
 
+
+def test_nutrient_adapter_maps_live_json_content_page_shape() -> None:
+    blocks = NutrientDocumentExtractor._map_blocks(
+        {
+            "pages": [
+                {
+                    "plainText": "The service base path is /change-api.",
+                    "keyValuePairs": [{"key": "Version", "value": "2.1"}],
+                },
+                {"plainText": "Second page evidence."},
+            ]
+        }
+    )
+
+    assert [block.page for block in blocks] == [1, 2]
+    assert blocks[0].text == "The service base path is /change-api."

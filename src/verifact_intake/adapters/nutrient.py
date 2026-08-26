@@ -79,20 +79,20 @@ class NutrientDocumentExtractor:
         for index, item in enumerate(candidates, start=1):
             if not isinstance(item, dict):
                 continue
-            text = item.get("text") or item.get("content")
+            text = item.get("text") or item.get("content") or item.get("plainText")
             if not isinstance(text, str) or not text.strip():
                 continue
-            page = item.get("page") or item.get("pageIndex") or 1
-            if isinstance(page, int) and item.get("pageIndex") is not None:
-                page += 1
+            page_value = item.get("page")
+            if page_value is None:
+                page_index = item.get("pageIndex")
+                page_value = page_index + 1 if isinstance(page_index, int) else index
             confidence = item.get("confidence")
             blocks.append(
                 ExtractedBlock(
                     block_id=str(item.get("id") or f"block-{index}"),
-                    page=max(int(page), 1),
+                    page=max(int(page_value), 1),
                     text=text.strip(),
                     confidence=float(confidence) if confidence is not None else None,
                 )
             )
         return blocks
-

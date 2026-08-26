@@ -10,8 +10,8 @@ The Atlas Change Service is operated by the Network Operations team.
 
 ## Creating a change
 
-Operators create a change with `PUT /v2/changes`. The client retries once if
-the request times out.
+The legacy guide describes `PUT` as the create-change HTTP method. The client
+retries once if the request times out.
 
 ## High-risk workflow
 

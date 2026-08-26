@@ -16,7 +16,7 @@
     {
       "block_id": "policy-verification",
       "page": 1,
-      "text": "A change can enter SUCCEEDED only after the post-change verification suite passes.",
+      "text": "Post-change verification is required before a change can be marked successful.",
       "confidence": 0.99
     },
     {

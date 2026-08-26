@@ -19,7 +19,7 @@
       "value": "POST",
       "source": "atlas-api-reference.pdf",
       "page": 1,
-      "quote": "POST /v2/changes creates a new change request.",
+      "quote": "The create-change operation uses the POST method.",
       "confidence": 0.99,
       "authority": 95,
       "expected_status": "conflicted"
@@ -30,7 +30,7 @@
       "value": "PUT",
       "source": "atlas-operations-guide.pdf",
       "page": 1,
-      "quote": "Operators create a change with PUT /v2/changes.",
+      "quote": "The legacy guide describes PUT as the create-change HTTP method.",
       "confidence": 0.97,
       "authority": 60,
       "expected_status": "conflicted"
@@ -41,7 +41,7 @@
       "value": "/v2/changes",
       "source": "atlas-api-reference.pdf",
       "page": 1,
-      "quote": "POST /v2/changes creates a new change request.",
+      "quote": "The create-change relative path is /v2/changes.",
       "confidence": 0.99,
       "authority": 95,
       "expected_status": "accepted"
@@ -129,7 +129,7 @@
       "value": true,
       "source": "atlas-quality-policy.pdf",
       "page": 1,
-      "quote": "A change can enter SUCCEEDED only after the post-change verification suite passes.",
+      "quote": "Post-change verification is required before a change can be marked successful.",
       "confidence": 0.99,
       "authority": 95,
       "expected_status": "accepted"

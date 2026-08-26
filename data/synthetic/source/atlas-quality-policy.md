@@ -16,9 +16,9 @@ retained for 180 days after completion.
 
 ## Verification
 
-A change can enter `SUCCEEDED` only after the post-change verification suite
-passes. A failed verification moves the change to `FAILED` and requires an
-incident reference.
+Post-change verification is required before a change can be marked successful.
+A failed verification moves the change to `FAILED` and requires an incident
+reference.
 
 ## Audit
 

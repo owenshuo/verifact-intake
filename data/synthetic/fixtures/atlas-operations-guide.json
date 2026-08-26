@@ -10,7 +10,7 @@
     {
       "block_id": "ops-create",
       "page": 1,
-      "text": "Operators create a change with PUT /v2/changes.",
+      "text": "The legacy guide describes PUT as the create-change HTTP method.",
       "confidence": 0.97
     },
     {
