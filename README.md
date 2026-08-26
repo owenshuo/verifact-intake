@@ -9,6 +9,8 @@ This repository is a new project for the DevNetwork API + Cloud + AI Hackathon
 quality-operations ontologies, but contains only new, public-safe code and
 synthetic data created for this event.
 
+![VeriFact Intake trust pipeline](docs/assets/verifact-hero.png)
+
 ## The trust boundary
 
 ```text
@@ -33,6 +35,8 @@ evidence and promotion history.
 - Live requests require an explicit runtime switch and stop at a configured call and credit budget.
 - Twelve evidence-linked assertions are assessed by a deterministic trust policy.
 - Conflicting and lower-authority claims enter a human review inbox.
+- Four review decisions close three conflicts plus one ownership confirmation,
+  producing nine evidence-linked effective facts.
 - Review decisions are append-only and target immutable assertion fingerprints.
 - Effective facts retain their source quote, page, artifact, and assertion IDs.
 - A hash-chained audit ledger detects mutation and can be replayed.

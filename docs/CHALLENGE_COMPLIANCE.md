@@ -7,7 +7,8 @@
 | Inspectable project | Public-safe PDFs, golden assertions, architecture, tests, and demo guide | Complete |
 | Reproducible code | Docker Compose and fixture replay use the same downstream pipeline | Complete; Linux container smoke test passes in GitHub Actions |
 | Project description | Full Devpost draft and one-line DWS role | Complete locally |
-| Demo video | Timed 2:40 script covering problem, DWS, intake, review, proof | Script complete; recording pending |
+| Submission images | Hero, review inbox, resolved facts, and audit proof screenshots | Complete from a verified Fixture rehearsal |
+| Demo video | Timed 2:40 script covering problem, DWS, four reviews, and proof | Script complete; final Live recording pending |
 | Source access | New repository has clean history and public-safety gate | Public at `owenshuo/verifact-intake`; CI passes |
 | Final submission | Draft exists on Devpost | External form completion pending |
 

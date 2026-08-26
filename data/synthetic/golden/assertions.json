@@ -138,6 +138,7 @@
   "expected_conflicts": 3,
   "expected_effective_facts_after_review": {
     "operation:create-change::http.method": "POST",
+    "service:atlas-change::business.owner": "Network Operations",
     "workflow:high-risk-change::approval.required_count": 2,
     "policy:change-evidence::retention.days": 180
   }

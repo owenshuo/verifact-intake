@@ -44,7 +44,9 @@ async def validate() -> None:
                 reviewer="validation-bot",
                 rationale="Golden benchmark selected the normative evidence.",
             )
-        assert len(run.facts) == 8
+        assert len(run.facts) == 9
+        assert run.open_review_count == 0
+        assert len(run.audit_events) == 17
         assert verify_audit_chain(run.audit_events)
         print(
             "Demo validation passed: "

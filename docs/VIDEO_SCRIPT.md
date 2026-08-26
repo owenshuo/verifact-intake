@@ -19,8 +19,9 @@ Open one synthetic PDF, then return to the pipeline panel.
 > structured JSON content. VeriFact keeps the extracted block, page, quote, and
 > artifact hash as evidence rather than treating parser output as authority.
 
-Overlay or show the live extraction-provider label. The final recording must
-use the `nutrient-dws` provider, not the fixture label.
+Show the `LIVE DWS` extraction-provider badge. The final recording must capture
+one budgeted `nutrient-dws-live` run, not represent cache or fixture replay as a
+fresh vendor call.
 
 ## 0:38–1:00 — Intake
 
@@ -32,13 +33,13 @@ Choose **Run trusted intake** and scroll to the workspace.
 
 ## 1:00–1:45 — Review
 
-Resolve the method conflict with `POST`, the approval conflict with `2`, and the
-retention conflict with `180`.
+Resolve the method conflict with `POST`, confirm `Network Operations` as the
+business owner, choose `2` approvals, and select `180` retention days.
 
 > The reviewer sees every candidate beside its authority, extraction
 > confidence, document, and direct quote. Choosing one appends an approval for
 > that assertion and rejections for its incompatible competitors. Nothing is
-> overwritten.
+> overwritten. The queue reaches zero and nine evidence-linked facts remain.
 
 ## 1:45–2:15 — Proof
 
@@ -46,7 +47,8 @@ Show the growing fact list and audit events. Export the ontology JSON.
 
 > Each promoted fact carries the assertion and evidence that justify it. The
 > append-only event ledger is hash chained, so changing prior history breaks
-> verification. The result is portable ontology data, not just a chat answer.
+> verification. The completed run contains seventeen replayable events. The
+> result is portable ontology data, not just a chat answer.
 
 ## 2:15–2:40 — Close
 

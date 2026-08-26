@@ -67,6 +67,7 @@ separately.
 
 - A complete source-to-truth loop rather than a document chat demo.
 - Three intentional conflicts detected from twelve evidence-backed assertions.
+- Four human decisions clear the review queue and produce nine effective facts.
 - Append-only review records and a tamper-evident audit chain.
 - Portable ontology export with source quote, page, block, and assertion provenance.
 - Public synthetic documents, golden assertions, and one-command reproducibility.
@@ -89,3 +90,10 @@ module profiles rather than product-specific forks.
 
 Nutrient DWS, Python, FastAPI, Pydantic, SQLite, HTTPX, Docker, Pytest, Ruff,
 MyPy, HTML, CSS, and JavaScript.
+
+## Submission media
+
+- Hero and trust boundary: `docs/assets/verifact-hero.png`
+- Evidence comparison and decision inbox: `docs/assets/verifact-review-workspace.png`
+- Cleared review queue and promoted facts: `docs/assets/verifact-resolved-proof.png`
+- Verified append-only audit ledger: `docs/assets/verifact-audit-proof.png`

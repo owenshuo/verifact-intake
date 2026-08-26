@@ -31,13 +31,15 @@ confidence, and direct quote. Select:
 - `Network Operations` after business-owner confirmation.
 
 Each choice appends approval and rejection decisions for that fact key. It does
-not overwrite the source assertion.
+not overwrite the source assertion. After all four decisions, the queue reaches
+zero and the run contains nine effective facts.
 
 ## 4. Inspect proof
 
 The effective-fact panel grows only after promotion succeeds. Export the
 ontology to inspect its evidence locators. The audit panel shows the hash chain;
-changing any prior event makes verification fail.
+changing any prior event makes verification fail. The completed walkthrough
+contains seventeen append-only audit events.
 
 ## Presenter line
 
