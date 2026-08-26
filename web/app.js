@@ -135,6 +135,16 @@ function renderAudit(run) {
   `).join("");
 }
 
+function providerPresentation(provider) {
+  if (provider.includes("nutrient-dws-live")) {
+    return ["LIVE DWS", "Fresh Nutrient extraction · billable request completed", "live"];
+  }
+  if (provider.includes("nutrient-dws-cache")) {
+    return ["DWS CACHE", "Verified response replay · no billable request", "cache"];
+  }
+  return ["FIXTURE", "Replayable DWS-shaped fixture · no vendor request", "fixture"];
+}
+
 async function renderRun(run) {
   state.run = run;
   emptyState.classList.add("hidden");
@@ -142,7 +152,10 @@ async function renderRun(run) {
   $("#workspace-actions").classList.remove("hidden");
   $("#run-title").textContent = "Evidence, decisions, and promoted truth.";
   $("#run-id").textContent = `run ${run.id.slice(0, 8)}`;
-  $("#provider-note").textContent = `Extraction provider: ${run.extraction_provider}`;
+  const [providerLabel, providerDetail, providerMode] = providerPresentation(run.extraction_provider);
+  $("#provider-label").textContent = providerLabel;
+  $("#provider-note").textContent = providerDetail;
+  $("#provider-state").dataset.mode = providerMode;
   renderMetrics(run);
   renderReviews(run);
   renderFacts(run);

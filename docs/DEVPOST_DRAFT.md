@@ -39,6 +39,8 @@ includes page-level evidence and a verifiable hash-chained audit head.
 - FastAPI provides the intake, review, run history, and ontology export API.
 - Nutrient DWS Build API performs the core PDF-to-structured-content operation.
 - A provider-neutral extraction port supports both live DWS and public fixture replay.
+- Content-addressed response caching, an explicit live switch, and a per-process
+  credit budget prevent development retries from becoming accidental billable calls.
 - Pydantic models enforce immutable source, assertion, review, conflict, and fact contracts.
 - Deterministic trust and promotion policies keep `Assertion != EffectiveFact`.
 - SQLite stores the run projection and rejects mutation of review and audit records with triggers.
@@ -57,8 +59,9 @@ that decide whether extracted content may become ontology truth.
 The hardest design problem was preserving a clear boundary between parser
 output, a candidate assertion, a human decision, and an effective fact. We also
 needed an offline path judges could replay without disguising fixture data as a
-live vendor call. Both providers therefore use the exact same extraction port
-and all downstream code is shared.
+live vendor call. Both providers therefore use the exact same extraction port,
+all downstream code is shared, and the UI labels live, cached, and fixture runs
+separately.
 
 ## Accomplishments
 

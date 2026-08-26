@@ -29,6 +29,8 @@ evidence and promotion history.
 
 - Three generated, public-safe PDFs form a reproducible conflict benchmark.
 - Fixture and Nutrient DWS extraction share one adapter contract.
+- Successful live DWS responses are content-addressed and replayed without another billable call.
+- Live requests require an explicit runtime switch and stop at a configured call and credit budget.
 - Twelve evidence-linked assertions are assessed by a deterministic trust policy.
 - Conflicting and lower-authority claims enter a human review inbox.
 - Review decisions are append-only and target immutable assertion fingerprints.
@@ -38,8 +40,9 @@ evidence and promotion history.
 - The browser demo, tests, CI, public-safety scan, and Docker startup are included.
 
 The default mode is a fully replayable fixture run so judges can reproduce the
-story without credentials. Set the extraction provider to `nutrient` to execute
-the same intake against the real Nutrient DWS API.
+story without credentials. Nutrient mode reads a validated DWS response cache
+first. A cache miss reaches the real API only when `NUTRIENT_LIVE_MODE=true` is
+set explicitly.
 
 ## One-command demo
 

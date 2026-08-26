@@ -15,9 +15,10 @@ Choose **Run trusted intake**. The application extracts three artifacts,
 compiles twelve evidence-linked assertions, detects three conflicts, and
 automatically promotes only five unambiguous high-authority facts.
 
-The default fixture provider makes this result replayable. When configured for
-Nutrient, the same button sends the PDFs through the DWS JSON-content operation
-before the common trust pipeline runs.
+The default fixture provider makes this result replayable. Nutrient mode first
+checks the content-addressed response cache. Only an explicitly enabled Live DWS
+run sends the PDFs through the JSON-content operation before the common trust
+pipeline runs. The provider badge distinguishes all three modes.
 
 ## 3. Resolve uncertainty
 

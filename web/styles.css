@@ -101,7 +101,10 @@ main { overflow: hidden; }
 .primary-button:disabled { opacity: .65; transform: none; cursor: wait; }
 .text-button { border: 0; background: transparent; color: var(--teal-dark); font-weight: 700; padding: 8px 0; }
 .mode-note { display: flex; gap: 9px; align-items: center; color: var(--muted); font-size: 12px; }
+.mode-note strong { color: var(--navy); font-size: 10px; letter-spacing: .09em; }
 .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 5px rgba(18,132,127,.1); }
+.mode-note[data-mode="live"] .pulse { background: #e0602b; box-shadow: 0 0 0 5px rgba(224,96,43,.12); }
+.mode-note[data-mode="cache"] .pulse { background: #5f6fc7; box-shadow: 0 0 0 5px rgba(95,111,199,.12); }
 
 .hero-console {
   position: relative; padding: 25px; border-radius: 22px; background: var(--navy); color: white;

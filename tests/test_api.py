@@ -4,11 +4,18 @@ import httpx
 import pytest
 
 from verifact_intake.adapters.fixture import FixtureDocumentExtractor
+from verifact_intake.adapters.nutrient import NutrientExtractionError
 from verifact_intake.adapters.sqlite_repository import SQLiteRunRepository
 from verifact_intake.api import app, get_service
 from verifact_intake.application.service import IntakeService
+from verifact_intake.ports.document_extractor import ExtractedDocument
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class FailingExtractor:
+    async def extract(self, _: Path) -> ExtractedDocument:
+        raise NutrientExtractionError("Live-call budget exhausted; no request was sent")
 
 
 @pytest.mark.asyncio
@@ -58,3 +65,23 @@ async def test_api_exposes_intake_review_and_evidence_export(tmp_path: Path) -> 
             assert len(review_response.json()["facts"]) == 6
     finally:
         app.dependency_overrides.clear()
+
+
+@pytest.mark.asyncio
+async def test_api_exposes_credit_guard_failure_without_leaking_secrets(tmp_path: Path) -> None:
+    service = IntakeService(
+        extractor=FailingExtractor(),
+        repository=SQLiteRunRepository(tmp_path / "api.db"),
+    )
+    app.dependency_overrides[get_service] = lambda: service
+    transport = httpx.ASGITransport(app=app)
+    try:
+        async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+            response = await client.post("/api/demo/runs")
+    finally:
+        app.dependency_overrides.clear()
+
+    assert response.status_code == 503
+    assert response.json() == {
+        "detail": "Live-call budget exhausted; no request was sent"
+    }

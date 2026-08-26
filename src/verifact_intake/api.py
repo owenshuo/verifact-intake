@@ -12,7 +12,10 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from verifact_intake import __version__
 from verifact_intake.adapters.fixture import FixtureDocumentExtractor
-from verifact_intake.adapters.nutrient import NutrientDocumentExtractor
+from verifact_intake.adapters.nutrient import (
+    NutrientDocumentExtractor,
+    NutrientExtractionError,
+)
 from verifact_intake.adapters.sqlite_repository import SQLiteRunRepository
 from verifact_intake.application.service import (
     IntakeService,
@@ -69,11 +72,21 @@ def get_service() -> IntakeService:
     repository = SQLiteRunRepository.from_url(settings.verifact_database_url)
     extractor: DocumentExtractor
     if settings.verifact_extraction_provider == "nutrient":
-        if settings.nutrient_api_key is None:
-            raise RuntimeError("NUTRIENT_API_KEY is required for the nutrient provider")
+        api_key = (
+            settings.nutrient_api_key.get_secret_value()
+            if settings.nutrient_api_key is not None
+            else None
+        )
         extractor = NutrientDocumentExtractor(
-            api_key=settings.nutrient_api_key.get_secret_value(),
+            api_key=api_key,
             base_url=settings.nutrient_api_base_url,
+            live_mode=settings.nutrient_live_mode,
+            cache_dir=settings.nutrient_cache_dir,
+            cache_enabled=settings.nutrient_cache_enabled,
+            cache_refresh=settings.nutrient_cache_refresh,
+            max_live_calls=settings.nutrient_max_live_calls,
+            estimated_credits_per_call=settings.nutrient_estimated_credits_per_call,
+            max_estimated_credits=settings.nutrient_max_estimated_credits,
         )
     else:
         extractor = FixtureDocumentExtractor(SYNTHETIC / "fixtures")
@@ -108,10 +121,13 @@ def healthz() -> dict[str, str]:
     tags=["intake"],
 )
 async def create_demo_run(service: Service) -> IntakeRun:
-    return await service.create_run(
-        pdf_dir=ROOT / "output" / "pdf",
-        golden_path=SYNTHETIC / "golden" / "assertions.json",
-    )
+    try:
+        return await service.create_run(
+            pdf_dir=ROOT / "output" / "pdf",
+            golden_path=SYNTHETIC / "golden" / "assertions.json",
+        )
+    except NutrientExtractionError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
 @app.get("/api/runs", response_model=list[RunSummary], tags=["intake"])
