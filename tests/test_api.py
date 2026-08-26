@@ -21,6 +21,10 @@ async def test_api_exposes_intake_review_and_evidence_export(tmp_path: Path) -> 
     transport = httpx.ASGITransport(app=app)
     try:
         async with httpx.AsyncClient(transport=transport, base_url="http://test") as client:
+            page_response = await client.get("/")
+            assert page_response.status_code == 200
+            assert "Documents become facts" in page_response.text
+
             create_response = await client.post("/api/demo/runs")
             assert create_response.status_code == 201
             run = create_response.json()

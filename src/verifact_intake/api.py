@@ -6,6 +6,8 @@ from typing import Annotated, Any
 from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 
 from verifact_intake import __version__
@@ -85,6 +87,13 @@ app = FastAPI(
     version=__version__,
     description="Evidence-linked document-to-ontology intake with human review.",
 )
+app.mount("/static", StaticFiles(directory=ROOT / "web"), name="static")
+app.mount("/artifacts", StaticFiles(directory=ROOT / "output" / "pdf"), name="artifacts")
+
+
+@app.get("/", include_in_schema=False)
+def index() -> FileResponse:
+    return FileResponse(ROOT / "web" / "index.html")
 
 
 @app.get("/healthz", tags=["operations"])

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="VeriFact Intake turns documents into evidence-linked ontology facts with deterministic trust gates."
+    />
+    <meta property="og:title" content="VeriFact Intake" />
+    <meta
+      property="og:description"
+      content="Documents become facts only when evidence wins."
+    />
+    <title>VeriFact Intake — Evidence before truth</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="VeriFact Intake home">
+        <span class="brand-mark">VF</span>
+        <span>
+          <strong>VeriFact</strong>
+          <small>trusted ontology intake</small>
+        </span>
+      </a>
+      <div class="topbar-actions">
+        <span class="sponsor"><i></i>Nutrient DWS challenge</span>
+        <a class="ghost-button" href="/docs" target="_blank" rel="noreferrer">API</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">EVIDENCE-FIRST KNOWLEDGE OPERATIONS</p>
+          <h1>Documents become facts<br /><em>only when evidence wins.</em></h1>
+          <p class="hero-lede">
+            Extract business documents, surface contradictions, route uncertainty to a human,
+            and publish ontology facts with replayable provenance.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-button" id="run-intake" type="button">
+              <span>Run trusted intake</span><b aria-hidden="true">→</b>
+            </button>
+            <button class="text-button" id="view-method" type="button">See the trust boundary</button>
+          </div>
+          <div class="mode-note">
+            <span class="pulse"></span>
+            <span id="provider-note">Ready with replayable DWS-shaped fixtures</span>
+          </div>
+        </div>
+
+        <div class="hero-console" aria-label="Trust pipeline overview">
+          <div class="console-head">
+            <span>INTAKE PIPELINE</span>
+            <span class="console-status">READY</span>
+          </div>
+          <ol class="pipeline">
+            <li class="active"><span>01</span><div><b>Extract</b><small>Nutrient DWS JSON content</small></div></li>
+            <li><span>02</span><div><b>Compile</b><small>Evidence-linked assertions</small></div></li>
+            <li><span>03</span><div><b>Challenge</b><small>Authority + conflict policy</small></div></li>
+            <li><span>04</span><div><b>Promote</b><small>Versioned effective facts</small></div></li>
+          </ol>
+          <div class="console-proof">
+            <span>TRUST INVARIANT</span>
+            <code>Assertion ≠ EffectiveFact</code>
+          </div>
+        </div>
+      </section>
+
+      <section class="documents-section" id="method">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PUBLIC SYNTHETIC BENCHMARK</p>
+            <h2>Three sources. Three deliberate disagreements.</h2>
+          </div>
+          <p>Every claim stays attached to its page, quote, block, authority, and content hash.</p>
+        </div>
+        <div class="document-grid">
+          <a class="document-card" href="/artifacts/atlas-api-reference.pdf" target="_blank">
+            <span class="doc-icon">API</span>
+            <div><b>API Reference</b><small>Authority 95 · normative contract</small></div>
+            <span class="doc-open">↗</span>
+          </a>
+          <a class="document-card" href="/artifacts/atlas-operations-guide.pdf" target="_blank">
+            <span class="doc-icon guide">OPS</span>
+            <div><b>Operations Guide</b><small>Authority 60–70 · legacy guidance</small></div>
+            <span class="doc-open">↗</span>
+          </a>
+          <a class="document-card" href="/artifacts/atlas-quality-policy.pdf" target="_blank">
+            <span class="doc-icon policy">POL</span>
+            <div><b>Quality Policy</b><small>Authority 95 · governance control</small></div>
+            <span class="doc-open">↗</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="workspace" id="workspace" aria-live="polite">
+        <div class="workspace-head">
+          <div>
+            <p class="eyebrow">LIVE TRUST WORKSPACE</p>
+            <h2 id="run-title">Run the intake to inspect its decisions.</h2>
+          </div>
+          <div class="workspace-actions hidden" id="workspace-actions">
+            <button class="secondary-button" id="export-run" type="button">Export ontology</button>
+            <span class="run-id" id="run-id"></span>
+          </div>
+        </div>
+
+        <div class="empty-state" id="empty-state">
+          <div class="empty-orbit"><span></span></div>
+          <h3>No truth has been assumed.</h3>
+          <p>Start a run to extract 12 assertions and let the trust kernel decide what is safe.</p>
+        </div>
+
+        <div class="results hidden" id="results">
+          <div class="metrics" id="metrics"></div>
+
+          <div class="work-grid">
+            <section class="panel review-panel">
+              <div class="panel-head">
+                <div><span>HUMAN REVIEW</span><h3>Decision inbox</h3></div>
+                <span class="count-badge" id="review-count">0 open</span>
+              </div>
+              <div class="review-list" id="review-list"></div>
+            </section>
+
+            <section class="panel facts-panel">
+              <div class="panel-head">
+                <div><span>ONTOLOGY OUTPUT</span><h3>Effective facts</h3></div>
+                <span class="verified-badge">✓ evidence linked</span>
+              </div>
+              <div class="facts-list" id="facts-list"></div>
+            </section>
+          </div>
+
+          <section class="panel audit-panel">
+            <div class="panel-head">
+              <div><span>REPLAYABLE PROOF</span><h3>Append-only audit ledger</h3></div>
+              <span class="verified-badge" id="audit-status">chain verified</span>
+            </div>
+            <div class="audit-track" id="audit-track"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status"></div>
+    <footer>
+      <span>VeriFact Intake · public synthetic demo</span>
+      <span>Source → Assertion → Review → EffectiveFact</span>
+    </footer>
+  </body>
+</html>

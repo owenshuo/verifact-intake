@@ -32,8 +32,11 @@ class IntakeRun(FrozenModel):
     @property
     def open_review_count(self) -> int:
         reviewed_ids = {decision.assertion_id for decision in self.reviews}
-        return sum(
-            assertion.status.value in {"review_required", "conflicted"}
-            and assertion.id not in reviewed_ids
-            for assertion in self.assertions
+        return len(
+            {
+                assertion.fact_key
+                for assertion in self.assertions
+                if assertion.status.value in {"review_required", "conflicted"}
+                and assertion.id not in reviewed_ids
+            }
         )

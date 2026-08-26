@@ -25,11 +25,33 @@ An extracted statement is never treated as truth merely because an AI or a
 document parser produced it. Every effective fact must retain its source
 evidence and promotion history.
 
-## Development status
+## What works now
 
-The project is under active hackathon development. The first checked-in slice
-defines the domain contract and the real Nutrient DWS adapter boundary. A
-public-safe synthetic document pack and the review UI follow next.
+- Three generated, public-safe PDFs form a reproducible conflict benchmark.
+- Fixture and Nutrient DWS extraction share one adapter contract.
+- Twelve evidence-linked assertions are assessed by a deterministic trust policy.
+- Conflicting and lower-authority claims enter a human review inbox.
+- Review decisions are append-only and target immutable assertion fingerprints.
+- Effective facts retain their source quote, page, artifact, and assertion IDs.
+- A hash-chained audit ledger detects mutation and can be replayed.
+- SQLite persists demo runs; the API exports a portable ontology JSON document.
+- The browser demo, tests, CI, public-safety scan, and Docker startup are included.
+
+The default mode is a fully replayable fixture run so judges can reproduce the
+story without credentials. Set the extraction provider to `nutrient` to execute
+the same intake against the real Nutrient DWS API.
+
+## One-command demo
+
+With Docker installed:
+
+```bash
+docker compose up --build
+```
+
+Open <http://localhost:8080>, choose **Run trusted intake**, compare the
+conflicting claims, and select the normative evidence. The ontology and audit
+export is available from the workspace header.
 
 ## Local setup
 
@@ -45,7 +67,13 @@ python -m venv .venv
 Copy `.env.example` to `.env` for local settings. Secrets belong in `.env` or
 `.secrets/`; both are excluded from Git. Never commit a Nutrient or LLM key.
 
+Useful project guides:
+
+- [Demo walkthrough](docs/DEMO.md)
+- [Nutrient DWS integration](docs/NUTRIENT_DWS.md)
+- [Architecture and trust invariants](docs/ARCHITECTURE.md)
+- [Security policy](SECURITY.md)
+
 ## License
 
 Apache-2.0.
-

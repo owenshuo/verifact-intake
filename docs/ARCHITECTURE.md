@@ -20,6 +20,11 @@ infrastructure that does not improve this demo.
 5. **SQLite repository** — durable local demo state. It is authoritative for
    the demo; no graph database is required.
 
+SQLite stores a current run projection for fast reads and separate append-only
+tables for review decisions and audit events. Database triggers reject updates
+or deletes against those evidence tables. Effective facts are unique by run,
+fact key, and version.
+
 ## Invariants
 
 - A `SourceArtifact` is immutable and content-addressed.
@@ -43,6 +48,23 @@ adapters ----------> ports + domain
 The domain never imports FastAPI, HTTP clients, Nutrient SDKs, databases, or an
 LLM provider.
 
+## Runtime path
+
+```text
+Browser
+  -> FastAPI
+     -> IntakeService
+        -> DocumentExtractor port -> fixture or Nutrient DWS adapter
+        -> AssertionCompiler       -> evidence match required
+        -> TrustPolicy             -> accepted / review_required / conflicted
+        -> PromotionPolicy         -> EffectiveFact or unresolved
+        -> SQLiteRunRepository     -> projection + append-only proof records
+```
+
+The fixture mode is not a second implementation. It replays checked-in
+extraction responses through the same compiler, policy, repository, API, and UI
+used by real DWS mode.
+
 ## Deliberately omitted from the hackathon slice
 
 - Neo4j projection
@@ -53,4 +75,3 @@ LLM provider.
 
 These are useful platform capabilities, but they do not strengthen the
 Nutrient judging story within the available build window.
-

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 
 import pytest
@@ -34,7 +35,7 @@ async def test_synthetic_run_builds_evidence_linked_trust_state(tmp_path: Path) 
     assert len(run.assertions) == 12
     assert len(run.conflicts) == 3
     assert len(run.facts) == 5
-    assert run.open_review_count == 7
+    assert run.open_review_count == 4
     assert verify_audit_chain(run.audit_events)
     assert service.get_run(run.id) == run
 
@@ -89,5 +90,8 @@ async def test_review_resolves_conflicts_and_promotes_expected_facts(
     assert all(conflict.status.value == "resolved" for conflict in run.conflicts)
     assert verify_audit_chain(run.audit_events)
 
-    with sqlite3.connect(database_path) as connection, pytest.raises(sqlite3.IntegrityError):
+    with (
+        closing(sqlite3.connect(database_path)) as connection,
+        pytest.raises(sqlite3.IntegrityError),
+    ):
         connection.execute("UPDATE review_decisions SET payload_json = '{}' ")

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import sqlite3
+from collections.abc import Iterator
+from contextlib import contextmanager
 from pathlib import Path
 from uuid import UUID
 
@@ -27,8 +29,17 @@ class SQLiteRunRepository:
         connection.execute("PRAGMA foreign_keys = ON")
         return connection
 
+    @contextmanager
+    def _connection(self) -> Iterator[sqlite3.Connection]:
+        connection = self._connect()
+        try:
+            with connection:
+                yield connection
+        finally:
+            connection.close()
+
     def _initialize(self) -> None:
-        with self._connect() as connection:
+        with self._connection() as connection:
             connection.executescript(
                 """
                 CREATE TABLE IF NOT EXISTS intake_runs (
@@ -57,6 +68,8 @@ class SQLiteRunRepository:
                     payload_json TEXT NOT NULL,
                     PRIMARY KEY(run_id, sequence)
                 );
+                CREATE INDEX IF NOT EXISTS idx_intake_runs_created_at
+                ON intake_runs(created_at DESC);
                 CREATE TRIGGER IF NOT EXISTS review_decisions_no_update
                 BEFORE UPDATE ON review_decisions
                 BEGIN SELECT RAISE(ABORT, 'review decisions are append-only'); END;
@@ -71,9 +84,10 @@ class SQLiteRunRepository:
                 BEGIN SELECT RAISE(ABORT, 'audit events are append-only'); END;
                 """
             )
+            connection.execute("PRAGMA optimize")
 
     def save(self, run: IntakeRun) -> None:
-        with self._connect() as connection:
+        with self._connection() as connection:
             connection.execute(
                 """
                 INSERT INTO intake_runs(id, dataset, created_at, state_json)
@@ -121,14 +135,14 @@ class SQLiteRunRepository:
                 )
 
     def get(self, run_id: UUID) -> IntakeRun | None:
-        with self._connect() as connection:
+        with self._connection() as connection:
             row = connection.execute(
                 "SELECT state_json FROM intake_runs WHERE id = ?", (str(run_id),)
             ).fetchone()
         return IntakeRun.model_validate_json(row[0]) if row is not None else None
 
     def list(self) -> tuple[IntakeRun, ...]:
-        with self._connect() as connection:
+        with self._connection() as connection:
             rows = connection.execute(
                 "SELECT state_json FROM intake_runs ORDER BY created_at DESC"
             ).fetchall()

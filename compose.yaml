@@ -1,0 +1,18 @@
+services:
+  verifact:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    environment:
+      VERIFACT_ENV: development
+      VERIFACT_DATABASE_URL: sqlite:////app/runtime/verifact.db
+      VERIFACT_EXTRACTION_PROVIDER: ${VERIFACT_EXTRACTION_PROVIDER:-fixture}
+      NUTRIENT_API_KEY: ${NUTRIENT_API_KEY:-}
+      NUTRIENT_API_BASE_URL: ${NUTRIENT_API_BASE_URL:-https://api.nutrient.io}
+    volumes:
+      - verifact-runtime:/app/runtime
+    restart: unless-stopped
+
+volumes:
+  verifact-runtime:
