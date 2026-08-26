@@ -21,3 +21,23 @@ jobs:
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[dev]"
       - run: sh scripts/quality_gate.sh
+      - name: Build demo image
+        run: docker build --tag verifact-intake:ci .
+      - name: Smoke-test demo container
+        run: |
+          docker run --detach --name verifact-ci --publish 8080:8080 verifact-intake:ci
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://127.0.0.1:8080/healthz >/dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 20 ]; then
+              docker logs verifact-ci
+              exit 1
+            fi
+            sleep 1
+          done
+          curl --fail --silent --request POST http://127.0.0.1:8080/api/demo/runs \
+            | python -c "import json,sys; run=json.load(sys.stdin); assert len(run['assertions']) == 12"
+      - name: Stop demo container
+        if: always()
+        run: docker rm --force verifact-ci || true
