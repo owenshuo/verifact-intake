@@ -1,0 +1,39 @@
+{
+  "provider": "fixture",
+  "blocks": [
+    {
+      "block_id": "api-summary",
+      "page": 1,
+      "text": "The service base path is /change-api.",
+      "confidence": 0.99
+    },
+    {
+      "block_id": "api-create",
+      "page": 1,
+      "text": "POST /v2/changes creates a new change request.",
+      "confidence": 0.99
+    },
+    {
+      "block_id": "api-idempotency",
+      "page": 1,
+      "text": "The Idempotency-Key header is required.",
+      "confidence": 0.99
+    },
+    {
+      "block_id": "api-timeout",
+      "page": 1,
+      "text": "Synchronous validation timeout is 30 seconds.",
+      "confidence": 0.99
+    },
+    {
+      "block_id": "api-get",
+      "page": 1,
+      "text": "GET /v2/changes/{changeId} returns the latest workflow state.",
+      "confidence": 0.99
+    }
+  ],
+  "raw_response": {
+    "fixture": true,
+    "document": "atlas-api-reference.pdf"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "provider": "fixture",
+  "blocks": [
+    {
+      "block_id": "ops-owner",
+      "page": 1,
+      "text": "The Atlas Change Service is operated by the Network Operations team.",
+      "confidence": 0.96
+    },
+    {
+      "block_id": "ops-create",
+      "page": 1,
+      "text": "Operators create a change with PUT /v2/changes.",
+      "confidence": 0.97
+    },
+    {
+      "block_id": "ops-approval",
+      "page": 1,
+      "text": "One duty manager approval is sufficient before a high-risk change is scheduled.",
+      "confidence": 0.97
+    },
+    {
+      "block_id": "ops-retention",
+      "page": 1,
+      "text": "Execution evidence is retained for 90 days after the change completes.",
+      "confidence": 0.97
+    }
+  ],
+  "raw_response": {
+    "fixture": true,
+    "document": "atlas-operations-guide.pdf"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "dataset": "atlas-change-service-2026-q3",
+  "description": "Expected evidence-linked assertions before human conflict resolution.",
+  "assertions": [
+    {
+      "subject_id": "service:atlas-change",
+      "predicate": "service.base_path",
+      "value": "/change-api",
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "quote": "The service base path is /change-api.",
+      "confidence": 0.99,
+      "authority": 95,
+      "expected_status": "accepted"
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "http.method",
+      "value": "POST",
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "quote": "POST /v2/changes creates a new change request.",
+      "confidence": 0.99,
+      "authority": 95,
+      "expected_status": "conflicted"
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "http.method",
+      "value": "PUT",
+      "source": "atlas-operations-guide.pdf",
+      "page": 1,
+      "quote": "Operators create a change with PUT /v2/changes.",
+      "confidence": 0.97,
+      "authority": 60,
+      "expected_status": "conflicted"
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "http.relative_path",
+      "value": "/v2/changes",
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "quote": "POST /v2/changes creates a new change request.",
+      "confidence": 0.99,
+      "authority": 95,
+      "expected_status": "accepted"
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "request.idempotency_key_required",
+      "value": true,
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "quote": "The Idempotency-Key header is required.",
+      "confidence": 0.99,
+      "authority": 95,
+      "expected_status": "accepted"
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "validation.timeout_seconds",
+      "value": 30,
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "quote": "Synchronous validation timeout is 30 seconds.",
+      "confidence": 0.99,
+      "authority": 95,
+      "expected_status": "accepted"
+    },
+    {
+      "subject_id": "service:atlas-change",
+      "predicate": "business.owner",
+      "value": "Network Operations",
+      "source": "atlas-operations-guide.pdf",
+      "page": 1,
+      "quote": "The Atlas Change Service is operated by the Network Operations team.",
+      "confidence": 0.96,
+      "authority": 70,
+      "expected_status": "review_required"
+    },
+    {
+      "subject_id": "workflow:high-risk-change",
+      "predicate": "approval.required_count",
+      "value": 1,
+      "source": "atlas-operations-guide.pdf",
+      "page": 1,
+      "quote": "One duty manager approval is sufficient before a high-risk change is scheduled.",
+      "confidence": 0.97,
+      "authority": 60,
+      "expected_status": "conflicted"
+    },
+    {
+      "subject_id": "workflow:high-risk-change",
+      "predicate": "approval.required_count",
+      "value": 2,
+      "source": "atlas-quality-policy.pdf",
+      "page": 1,
+      "quote": "Every high-risk change requires two independent approvals before scheduling.",
+      "confidence": 0.99,
+      "authority": 95,
+      "expected_status": "conflicted"
+    },
+    {
+      "subject_id": "policy:change-evidence",
+      "predicate": "retention.days",
+      "value": 90,
+      "source": "atlas-operations-guide.pdf",
+      "page": 1,
+      "quote": "Execution evidence is retained for 90 days after the change completes.",
+      "confidence": 0.97,
+      "authority": 60,
+      "expected_status": "conflicted"
+    },
+    {
+      "subject_id": "policy:change-evidence",
+      "predicate": "retention.days",
+      "value": 180,
+      "source": "atlas-quality-policy.pdf",
+      "page": 1,
+      "quote": "Change plans, approvals, execution logs, and verification results must be retained for 180 days after completion.",
+      "confidence": 0.99,
+      "authority": 95,
+      "expected_status": "conflicted"
+    },
+    {
+      "subject_id": "workflow:change-execution",
+      "predicate": "success.requires_verification",
+      "value": true,
+      "source": "atlas-quality-policy.pdf",
+      "page": 1,
+      "quote": "A change can enter SUCCEEDED only after the post-change verification suite passes.",
+      "confidence": 0.99,
+      "authority": 95,
+      "expected_status": "accepted"
+    }
+  ],
+  "expected_conflicts": 3,
+  "expected_effective_facts_after_review": {
+    "operation:create-change::http.method": "POST",
+    "workflow:high-risk-change::approval.required_count": 2,
+    "policy:change-evidence::retention.days": 180
+  }
+}

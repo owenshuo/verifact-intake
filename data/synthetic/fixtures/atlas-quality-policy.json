@@ -1,0 +1,33 @@
+{
+  "provider": "fixture",
+  "blocks": [
+    {
+      "block_id": "policy-approval",
+      "page": 1,
+      "text": "Every high-risk change requires two independent approvals before scheduling.",
+      "confidence": 0.99
+    },
+    {
+      "block_id": "policy-retention",
+      "page": 1,
+      "text": "Change plans, approvals, execution logs, and verification results must be retained for 180 days after completion.",
+      "confidence": 0.99
+    },
+    {
+      "block_id": "policy-verification",
+      "page": 1,
+      "text": "A change can enter SUCCEEDED only after the post-change verification suite passes.",
+      "confidence": 0.99
+    },
+    {
+      "block_id": "policy-audit",
+      "page": 1,
+      "text": "Approval and promotion decisions are append-only.",
+      "confidence": 0.99
+    }
+  ],
+  "raw_response": {
+    "fixture": true,
+    "document": "atlas-quality-policy.pdf"
+  }
+}
