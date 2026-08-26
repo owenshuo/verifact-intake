@@ -11,8 +11,8 @@ quality policy.
 
 ## 2. Run trusted intake
 
-Choose **Run trusted intake**. The application extracts three artifacts,
-compiles twelve evidence-linked assertions, detects three conflicts, and
+Choose **Run trusted intake**. The application extracts three artifacts, derives
+twelve typed values from matching evidence blocks, detects three conflicts, and
 automatically promotes only five unambiguous high-authority facts.
 
 The default fixture provider makes this result replayable. Nutrient mode first

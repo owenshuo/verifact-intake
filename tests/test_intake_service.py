@@ -27,7 +27,7 @@ async def test_synthetic_run_builds_evidence_linked_trust_state(tmp_path: Path) 
 
     run = await service.create_run(
         pdf_dir=ROOT / "output" / "pdf",
-        golden_path=ROOT / "data" / "synthetic" / "golden" / "assertions.json",
+        profile_path=(ROOT / "data" / "synthetic" / "profiles" / "atlas-change-service-v1.json"),
     )
 
     assert run.extraction_provider == "fixture"
@@ -48,12 +48,10 @@ async def test_review_resolves_conflicts_and_promotes_expected_facts(
     service = _service(database_path)
     run = await service.create_run(
         pdf_dir=ROOT / "output" / "pdf",
-        golden_path=ROOT / "data" / "synthetic" / "golden" / "assertions.json",
+        profile_path=(ROOT / "data" / "synthetic" / "profiles" / "atlas-change-service-v1.json"),
     )
     golden = json.loads(
-        (ROOT / "data" / "synthetic" / "golden" / "assertions.json").read_text(
-            encoding="utf-8"
-        )
+        (ROOT / "data" / "synthetic" / "golden" / "expected-run.json").read_text(encoding="utf-8")
     )
 
     expected = golden["expected_effective_facts_after_review"]

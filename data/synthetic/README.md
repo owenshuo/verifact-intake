@@ -15,6 +15,20 @@ The pack intentionally contains realistic disagreements:
 These conflicts demonstrate why extracted assertions cannot automatically
 become trusted facts.
 
+The pack deliberately separates runtime configuration from expected results:
+
+- `profiles/atlas-change-service-v1.json` declares sources, semantic fields,
+  extraction patterns, value types, confidence ceilings, and authority scores;
+  it contains no expected values or prewritten evidence quotes;
+- `golden/expected-run.json` is a regression oracle loaded only by tests and the
+  validation script;
+- `fixtures/*.json` replay normalized extraction blocks through the same
+  compiler used by Nutrient DWS live and cache modes.
+
+To onboard another document set, add its PDFs and a versioned profile. The
+trust, review, promotion, persistence, export, and audit components do not need
+product-specific forks.
+
 Run the generator from the repository root:
 
 ```powershell

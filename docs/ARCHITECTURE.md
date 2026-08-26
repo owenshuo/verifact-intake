@@ -13,8 +13,9 @@ infrastructure that does not improve this demo.
 
 1. **Web/API** — upload synthetic PDFs, run intake, review uncertain claims,
    inspect evidence, and export results.
-2. **Application service** — coordinates extraction, normalization, validation,
-   review, and promotion without depending on a specific document vendor.
+2. **Application service** — loads a versioned assertion profile and coordinates
+   extraction, value derivation, validation, review, and promotion without
+   depending on a specific document vendor.
 3. **Nutrient DWS adapter** — performs a meaningful core extraction operation
    and preserves the provider response needed for traceability.
 4. **Deterministic trust kernel** — fingerprints evidence, finds incompatible
@@ -38,6 +39,10 @@ fact key, and version.
 - Every `EffectiveFact` names the assertions and evidence that justify it.
 - Vendor responses are retained only in public-safe demo storage and are never
   treated as the authority of record.
+- Runtime profiles declare source metadata, evidence patterns, value types, and
+  authority; they do not contain expected values or prewritten evidence quotes.
+- The golden expected-run document is a test oracle and is never loaded by the
+  runtime API or application service.
 
 ## Dependency direction
 
@@ -57,7 +62,7 @@ Browser
   -> FastAPI
      -> IntakeService
         -> DocumentExtractor port -> fixture or Nutrient DWS adapter
-        -> AssertionCompiler       -> evidence match required
+        -> AssertionCompiler       -> pattern match + typed value from evidence
         -> TrustPolicy             -> accepted / review_required / conflicted
         -> PromotionPolicy         -> EffectiveFact or unresolved
         -> SQLiteRunRepository     -> projection + append-only proof records

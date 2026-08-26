@@ -16,8 +16,9 @@ Show the hero and the three document cards.
 Open one synthetic PDF, then return to the pipeline panel.
 
 > Nutrient DWS performs the core document operation, turning each PDF into
-> structured JSON content. VeriFact keeps the extracted block, page, quote, and
-> artifact hash as evidence rather than treating parser output as authority.
+> structured JSON content. VeriFact derives typed values from those blocks and
+> keeps the page, exact quote, and artifact hash as evidence rather than treating
+> parser output as authority.
 
 Show the `LIVE DWS` extraction-provider badge. The final recording must capture
 one budgeted `nutrient-dws-live` run, not represent cache or fixture replay as a

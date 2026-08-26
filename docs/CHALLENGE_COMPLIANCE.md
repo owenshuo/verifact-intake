@@ -2,15 +2,19 @@
 
 | Requirement | VeriFact evidence | Status |
 |---|---|---|
-| Meaningful DWS API/SDK use | Build API `json-content` extraction is the only production document adapter | Implemented and validated against the live response shape |
+| Meaningful DWS API/SDK use | Build API `json-content` is the only production adapter; typed assertion values and exact quotes are derived from its blocks | Implemented and validated against the live response shape |
 | Core document operation | All semantic assertions require content produced through `DocumentExtractor` | Implemented and tested |
-| Inspectable project | Public-safe PDFs, golden assertions, architecture, tests, and demo guide | Complete |
+| Inspectable project | Public-safe PDFs, runtime profile, isolated golden benchmark, architecture, tests, and demo guide | Complete |
 | Reproducible code | Docker Compose and fixture replay use the same downstream pipeline | Complete; Linux container smoke test passes in GitHub Actions |
 | Project description | Full Devpost draft and one-line DWS role | Complete locally |
 | Submission images | Hero, review inbox, resolved facts, and audit proof screenshots | Complete from a verified Fixture rehearsal |
 | Demo video | Timed 2:40 walkthrough covering problem, DWS, four reviews, and proof | [Published publicly on YouTube](https://youtu.be/4BP6WnA3pnA) |
 | Source access | New repository has clean history and public-safety gate | Public at `owenshuo/verifact-intake`; CI passes |
 | Final submission | Draft exists on Devpost | External form completion pending |
+
+The runtime assertion profile contains evidence patterns, types, and source
+authority but no expected values or quotes. Golden expected results are isolated
+to tests, so fixture replay cannot inject prewritten ontology facts.
 
 ## Credit-safety status
 

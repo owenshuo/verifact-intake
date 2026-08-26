@@ -124,7 +124,7 @@ async def create_demo_run(service: Service) -> IntakeRun:
     try:
         return await service.create_run(
             pdf_dir=ROOT / "output" / "pdf",
-            golden_path=SYNTHETIC / "golden" / "assertions.json",
+            profile_path=SYNTHETIC / "profiles" / "atlas-change-service-v1.json",
         )
     except NutrientExtractionError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc

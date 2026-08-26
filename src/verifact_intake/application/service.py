@@ -4,7 +4,7 @@ import hashlib
 from pathlib import Path
 from uuid import UUID
 
-from verifact_intake.application.compiler import AssertionCompiler, load_golden_dataset
+from verifact_intake.application.compiler import AssertionCompiler, load_assertion_profile
 from verifact_intake.domain.audit import AuditEventType, append_audit_event
 from verifact_intake.domain.models import (
     Assertion,
@@ -13,7 +13,6 @@ from verifact_intake.domain.models import (
     ReviewDecision,
     ReviewOutcome,
     SourceArtifact,
-    SourceKind,
 )
 from verifact_intake.domain.policies import TrustPolicy
 from verifact_intake.domain.promotion import PromotionPolicy
@@ -28,13 +27,6 @@ class RunNotFoundError(LookupError):
 
 class InvalidReviewError(ValueError):
     pass
-
-
-SOURCE_KINDS = {
-    "atlas-api-reference.pdf": SourceKind.API_REFERENCE,
-    "atlas-operations-guide.pdf": SourceKind.BUSINESS_GUIDE,
-    "atlas-quality-policy.pdf": SourceKind.QUALITY_POLICY,
-}
 
 
 class IntakeService:
@@ -52,9 +44,10 @@ class IntakeService:
         self._promotion_policy = promotion_policy or PromotionPolicy()
         self._compiler = AssertionCompiler()
 
-    async def create_run(self, *, pdf_dir: Path, golden_path: Path) -> IntakeRun:
-        dataset = load_golden_dataset(golden_path)
-        filenames = sorted({rule.source for rule in dataset.assertions})
+    async def create_run(self, *, pdf_dir: Path, profile_path: Path) -> IntakeRun:
+        profile = load_assertion_profile(profile_path)
+        sources = {source.filename: source for source in profile.sources}
+        filenames = sorted(sources)
         artifacts: list[SourceArtifact] = []
         documents: dict[str, ExtractedDocument] = {}
 
@@ -66,18 +59,18 @@ class IntakeService:
                 SourceArtifact(
                     filename=filename,
                     media_type="application/pdf",
-                    source_kind=SOURCE_KINDS.get(filename, SourceKind.OTHER),
+                    source_kind=sources[filename].source_kind,
                     sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
                     extraction_provider=document.provider,
                 )
             )
 
-        assertions = self._compiler.compile(dataset, tuple(artifacts), documents)
+        assertions = self._compiler.compile(profile, tuple(artifacts), documents)
         assessment = self._trust_policy.assess(assertions)
         promotion = self._promotion_policy.promote(assessment.assertions, ())
         provider_names = sorted({document.provider for document in documents.values()})
         run = IntakeRun(
-            dataset=dataset.dataset,
+            dataset=profile.dataset,
             extraction_provider=", ".join(provider_names),
             artifacts=tuple(artifacts),
             assertions=assessment.assertions,
@@ -125,9 +118,7 @@ class IntakeService:
         corrected_value: object | None = None,
     ) -> IntakeRun:
         run = self.get_run(run_id)
-        chosen = next(
-            (item for item in run.assertions if item.id == chosen_assertion_id), None
-        )
+        chosen = next((item for item in run.assertions if item.id == chosen_assertion_id), None)
         if chosen is None:
             raise InvalidReviewError("The chosen assertion does not belong to this run")
         if chosen.status not in {

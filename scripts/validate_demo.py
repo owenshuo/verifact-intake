@@ -23,13 +23,11 @@ async def validate() -> None:
         )
         run = await service.create_run(
             pdf_dir=ROOT / "output" / "pdf",
-            golden_path=SYNTHETIC / "golden" / "assertions.json",
+            profile_path=SYNTHETIC / "profiles" / "atlas-change-service-v1.json",
         )
         payload = cast(
             dict[str, Any],
-            json.loads(
-                (SYNTHETIC / "golden" / "assertions.json").read_text(encoding="utf-8")
-            ),
+            json.loads((SYNTHETIC / "golden" / "expected-run.json").read_text(encoding="utf-8")),
         )
         expected = cast(dict[str, Any], payload["expected_effective_facts_after_review"])
         for fact_key, value in expected.items():

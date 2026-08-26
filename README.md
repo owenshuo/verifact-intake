@@ -1,8 +1,9 @@
 # VeriFact Intake
 
-VeriFact Intake turns messy business documents into evidence-linked ontology
-facts. It combines deterministic document extraction, normalized assertions,
-conflict detection, human review, and a replayable audit trail.
+VeriFact Intake prevents agents and operational systems from silently choosing
+between conflicting business documents. It turns API references, operations
+guides, and governance policies into evidence-linked ontology facts through
+deterministic extraction, conflict detection, human review, and replayable proof.
 
 [![CI](https://github.com/owenshuo/verifact-intake/actions/workflows/ci.yml/badge.svg)](https://github.com/owenshuo/verifact-intake/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
@@ -13,6 +14,14 @@ quality-operations ontologies, but contains only new, public-safe code and
 synthetic data created for this event.
 
 ![VeriFact Intake trust pipeline](docs/assets/verifact-hero.png)
+
+## The operational risk
+
+An API reference says `POST`; an older runbook says `PUT`. A policy requires
+two approvals; an operations guide says one. A retention rule says 180 days;
+another document says 90. Search and document-chat systems can retrieve both,
+but an agent still needs to know which statement is eligible to drive an
+operation. VeriFact makes that decision explicit, reviewable, and auditable.
 
 ## Judge it in two minutes
 
@@ -32,9 +41,24 @@ default replayable fixture run.
 The [written walkthrough](docs/DEMO.md) and
 [recording script](docs/VIDEO_SCRIPT.md) are also available.
 
+## Why Nutrient DWS is core
+
+Nutrient DWS is the only production document adapter. It turns each PDF into
+structured evidence blocks before any assertion can exist. The runtime profile
+declares the semantic field, extraction pattern, type, and source authority—but
+contains no expected value or prewritten quote. The compiler derives both the
+typed value and exact evidence quote from DWS output. A missing match fails the
+run closed.
+
+The expected values live in a separate golden file used only by tests. Fixture
+mode replays extracted blocks through the same compiler; it does not inject
+ontology facts.
+
 ## The trust architecture
 
 ![VeriFact Intake architecture: Nutrient extraction, assertions, trust policy, review, effective facts, and audit proof](docs/assets/verifact-trust-architecture.svg)
+
+![Document AI stops at extracted content; VeriFact continues through evidence, conflict, review, promotion, and proof](docs/assets/document-ai-vs-verifact.svg)
 
 The central invariant is **Assertion ≠ EffectiveFact**:
 
@@ -66,7 +90,8 @@ evidence and promotion history.
 - Fixture and Nutrient DWS extraction share one adapter contract.
 - Successful live DWS responses are content-addressed and replayed without another billable call.
 - Live requests require an explicit runtime switch and stop at a configured call and credit budget.
-- Twelve evidence-linked assertions are assessed by a deterministic trust policy.
+- Twelve typed assertion values are derived from extracted evidence and assessed
+  by a deterministic trust policy.
 - Conflicting and lower-authority claims enter a human review inbox.
 - Four review decisions close three conflicts plus one ownership confirmation,
   producing nine evidence-linked effective facts.
@@ -75,6 +100,8 @@ evidence and promotion history.
 - A hash-chained audit ledger detects mutation and can be replayed.
 - SQLite persists demo runs; the API exports a portable ontology JSON document.
 - The browser demo, tests, CI, public-safety scan, and Docker startup are included.
+- The runtime profile contains extraction rules and authority metadata, while a
+  separate golden expected-run file acts only as a regression oracle.
 
 The default mode is a fully replayable fixture run so judges can reproduce the
 story without credentials. Nutrient mode reads a validated DWS response cache

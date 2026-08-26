@@ -1,0 +1,142 @@
+{
+  "schema": "verifact.assertion-profile/v1",
+  "profile": "atlas-change-service/v1",
+  "dataset": "atlas-change-service-2026-q3",
+  "description": "Evidence extraction rules and source authority for the synthetic Atlas Change Service.",
+  "sources": [
+    {
+      "filename": "atlas-api-reference.pdf",
+      "source_kind": "api_reference"
+    },
+    {
+      "filename": "atlas-operations-guide.pdf",
+      "source_kind": "business_guide"
+    },
+    {
+      "filename": "atlas-quality-policy.pdf",
+      "source_kind": "quality_policy"
+    }
+  ],
+  "assertions": [
+    {
+      "subject_id": "service:atlas-change",
+      "predicate": "service.base_path",
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "evidence_pattern": "The service base path is (?P<value>/[A-Za-z0-9/_-]+)[.]",
+      "value_type": "string",
+      "confidence": 0.99,
+      "authority": 95
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "http.method",
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "evidence_pattern": "The create-change operation uses the (?P<value>[A-Z]+) method[.]",
+      "value_type": "string",
+      "confidence": 0.99,
+      "authority": 95
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "http.method",
+      "source": "atlas-operations-guide.pdf",
+      "page": 1,
+      "evidence_pattern": "The legacy guide describes (?P<value>[A-Z]+) as the create-change HTTP method[.]",
+      "value_type": "string",
+      "confidence": 0.97,
+      "authority": 60
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "http.relative_path",
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "evidence_pattern": "Canonical operation: [A-Z]+ (?P<value>/[A-Za-z0-9/{}_-]+)[.]",
+      "value_type": "string",
+      "confidence": 0.99,
+      "authority": 95
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "request.idempotency_key_required",
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "evidence_pattern": "The Idempotency-Key header is (?P<value>required|optional)[.]",
+      "value_type": "boolean",
+      "confidence": 0.99,
+      "authority": 95
+    },
+    {
+      "subject_id": "operation:create-change",
+      "predicate": "validation.timeout_seconds",
+      "source": "atlas-api-reference.pdf",
+      "page": 1,
+      "evidence_pattern": "Synchronous validation timeout is (?P<value>[0-9]+) seconds[.]",
+      "value_type": "integer",
+      "confidence": 0.99,
+      "authority": 95
+    },
+    {
+      "subject_id": "service:atlas-change",
+      "predicate": "business.owner",
+      "source": "atlas-operations-guide.pdf",
+      "page": 1,
+      "evidence_pattern": "The Atlas Change Service is operated by the (?P<value>.+?) team[.]",
+      "value_type": "string",
+      "confidence": 0.96,
+      "authority": 70
+    },
+    {
+      "subject_id": "workflow:high-risk-change",
+      "predicate": "approval.required_count",
+      "source": "atlas-operations-guide.pdf",
+      "page": 1,
+      "evidence_pattern": "(?P<value>one|two|three|four|five|[0-9]+) duty manager approvals? (?:is|are) sufficient before a high-risk change is scheduled[.]",
+      "value_type": "integer",
+      "confidence": 0.97,
+      "authority": 60
+    },
+    {
+      "subject_id": "workflow:high-risk-change",
+      "predicate": "approval.required_count",
+      "source": "atlas-quality-policy.pdf",
+      "page": 1,
+      "evidence_pattern": "Every high-risk change requires (?P<value>one|two|three|four|five|[0-9]+) independent approvals? before scheduling[.]",
+      "value_type": "integer",
+      "confidence": 0.99,
+      "authority": 95
+    },
+    {
+      "subject_id": "policy:change-evidence",
+      "predicate": "retention.days",
+      "source": "atlas-operations-guide.pdf",
+      "page": 1,
+      "evidence_pattern": "Execution evidence is retained for (?P<value>[0-9]+) days after the change completes[.]",
+      "value_type": "integer",
+      "confidence": 0.97,
+      "authority": 60
+    },
+    {
+      "subject_id": "policy:change-evidence",
+      "predicate": "retention.days",
+      "source": "atlas-quality-policy.pdf",
+      "page": 1,
+      "evidence_pattern": "Change plans, approvals, execution logs, and verification results must be retained for (?P<value>[0-9]+) days after completion[.]",
+      "value_type": "integer",
+      "confidence": 0.99,
+      "authority": 95
+    },
+    {
+      "subject_id": "workflow:change-execution",
+      "predicate": "success.requires_verification",
+      "source": "atlas-quality-policy.pdf",
+      "page": 1,
+      "evidence_pattern": "Post-change verification is (?P<value>required|optional) before a change can be marked successful[.]",
+      "value_type": "boolean",
+      "confidence": 0.99,
+      "authority": 95
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "verifact.expected-run/v1",
+  "dataset": "atlas-change-service-2026-q3",
+  "assertions": [
+    {"subject_id": "service:atlas-change", "predicate": "service.base_path", "value": "/change-api", "source": "atlas-api-reference.pdf", "expected_status": "accepted"},
+    {"subject_id": "operation:create-change", "predicate": "http.method", "value": "POST", "source": "atlas-api-reference.pdf", "expected_status": "conflicted"},
+    {"subject_id": "operation:create-change", "predicate": "http.method", "value": "PUT", "source": "atlas-operations-guide.pdf", "expected_status": "conflicted"},
+    {"subject_id": "operation:create-change", "predicate": "http.relative_path", "value": "/v2/changes", "source": "atlas-api-reference.pdf", "expected_status": "accepted"},
+    {"subject_id": "operation:create-change", "predicate": "request.idempotency_key_required", "value": true, "source": "atlas-api-reference.pdf", "expected_status": "accepted"},
+    {"subject_id": "operation:create-change", "predicate": "validation.timeout_seconds", "value": 30, "source": "atlas-api-reference.pdf", "expected_status": "accepted"},
+    {"subject_id": "service:atlas-change", "predicate": "business.owner", "value": "Network Operations", "source": "atlas-operations-guide.pdf", "expected_status": "review_required"},
+    {"subject_id": "workflow:high-risk-change", "predicate": "approval.required_count", "value": 1, "source": "atlas-operations-guide.pdf", "expected_status": "conflicted"},
+    {"subject_id": "workflow:high-risk-change", "predicate": "approval.required_count", "value": 2, "source": "atlas-quality-policy.pdf", "expected_status": "conflicted"},
+    {"subject_id": "policy:change-evidence", "predicate": "retention.days", "value": 90, "source": "atlas-operations-guide.pdf", "expected_status": "conflicted"},
+    {"subject_id": "policy:change-evidence", "predicate": "retention.days", "value": 180, "source": "atlas-quality-policy.pdf", "expected_status": "conflicted"},
+    {"subject_id": "workflow:change-execution", "predicate": "success.requires_verification", "value": true, "source": "atlas-quality-policy.pdf", "expected_status": "accepted"}
+  ],
+  "expected_conflicts": 3,
+  "expected_effective_facts_after_review": {
+    "operation:create-change::http.method": "POST",
+    "service:atlas-change::business.owner": "Network Operations",
+    "workflow:high-risk-change::approval.required_count": 2,
+    "policy:change-evidence::retention.days": 180
+  }
+}

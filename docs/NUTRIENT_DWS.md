@@ -5,6 +5,12 @@ uploads each PDF to the Build API and requests `json-content` with key-value
 pair extraction enabled. Provider responses are retained behind the extraction
 port for traceability but are not treated as ontology authority.
 
+Every runtime assertion value comes from a named capture in a DWS-extracted
+evidence block. The assertion profile declares what semantic field to find, how
+to type it, and how authoritative its source is; it does not declare the value
+or quote expected from the document. When a required pattern is absent, the
+compiler fails closed instead of manufacturing a claim.
+
 ## Configure real extraction
 
 Create a local `.env` file:
@@ -51,6 +57,10 @@ The checked-in fixture responses mirror the `ExtractedDocument` port rather
 than bypassing the application. They exist so reviewers can reproduce the
 entire semantic, review, persistence, export, and audit behavior without a
 vendor account.
+
+`data/synthetic/golden/expected-run.json` is used only by tests and the demo
+validator. Production runtime code loads the assertion profile and extracted
+blocks, never the expected values.
 
 The browser always labels the active mode as `LIVE DWS`, `DWS CACHE`, or
 `FIXTURE`; a cached or fixture run is never presented as a fresh vendor call.
