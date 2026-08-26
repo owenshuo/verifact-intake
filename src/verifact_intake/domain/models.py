@@ -126,3 +126,6 @@ class EffectiveFact(FrozenModel):
     version: int = Field(ge=1)
     effective_from: datetime = Field(default_factory=utc_now)
 
+    @property
+    def fact_key(self) -> str:
+        return f"{self.subject_id}::{self.predicate}"
