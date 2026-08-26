@@ -28,9 +28,9 @@ Open <http://localhost:8080>, choose **Run trusted intake**, resolve the four
 review items, and export the resulting ontology. No API key is required for the
 default replayable fixture run.
 
-**Demo video:** the final public link will be added after the controlled Live
-DWS recording. The [two-minute walkthrough](docs/DEMO.md) and
-[recording script](docs/VIDEO_SCRIPT.md) are already available.
+**Demo video:** [watch the public 2:40 walkthrough](https://youtu.be/4BP6WnA3pnA).
+The [written walkthrough](docs/DEMO.md) and
+[recording script](docs/VIDEO_SCRIPT.md) are also available.
 
 ## The trust architecture
 

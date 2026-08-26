@@ -93,6 +93,8 @@ MyPy, HTML, CSS, and JavaScript.
 
 ## Submission media
 
+- Public demo video: https://youtu.be/4BP6WnA3pnA
+- Public source repository: https://github.com/owenshuo/verifact-intake
 - Hero and trust boundary: `docs/assets/verifact-hero.png`
 - Evidence comparison and decision inbox: `docs/assets/verifact-review-workspace.png`
 - Cleared review queue and promoted facts: `docs/assets/verifact-resolved-proof.png`
