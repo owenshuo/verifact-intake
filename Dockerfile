@@ -3,6 +3,7 @@ FROM python:3.12-slim AS runtime
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
+    VERIFACT_ASSET_ROOT=/app \
     VERIFACT_DATABASE_URL=sqlite:////app/runtime/verifact.db
 
 WORKDIR /app

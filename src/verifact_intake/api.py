@@ -24,7 +24,7 @@ from verifact_intake.domain.audit import verify_audit_chain
 from verifact_intake.domain.run import IntakeRun
 from verifact_intake.ports.document_extractor import DocumentExtractor
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = get_settings().verifact_asset_root or Path(__file__).resolve().parents[2]
 SYNTHETIC = ROOT / "data" / "synthetic"
 
 

@@ -1,4 +1,5 @@
 from functools import lru_cache
+from pathlib import Path
 from typing import Literal
 
 from pydantic import SecretStr
@@ -15,6 +16,7 @@ class Settings(BaseSettings):
     )
 
     verifact_env: Literal["development", "test", "production"] = "development"
+    verifact_asset_root: Path | None = None
     verifact_database_url: str = "sqlite:///./data/runtime/verifact.db"
     verifact_extraction_provider: Literal["fixture", "nutrient"] = "fixture"
     nutrient_api_key: SecretStr | None = None
@@ -26,4 +28,3 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-

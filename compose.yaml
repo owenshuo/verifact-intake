@@ -6,6 +6,7 @@ services:
       - "8080:8080"
     environment:
       VERIFACT_ENV: development
+      VERIFACT_ASSET_ROOT: /app
       VERIFACT_DATABASE_URL: sqlite:////app/runtime/verifact.db
       VERIFACT_EXTRACTION_PROVIDER: ${VERIFACT_EXTRACTION_PROVIDER:-fixture}
       NUTRIENT_API_KEY: ${NUTRIENT_API_KEY:-}
