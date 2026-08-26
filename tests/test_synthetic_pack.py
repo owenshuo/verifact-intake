@@ -4,6 +4,9 @@ from pathlib import Path
 
 import pdfplumber
 
+from verifact_intake.application.compiler import AssertionCompiler
+from verifact_intake.ports.document_extractor import ExtractedBlock, ExtractedDocument
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -33,3 +36,24 @@ def test_fixture_blocks_are_public_safe_and_match_pdf_names() -> None:
         assert payload["provider"] == "fixture"
         assert payload["raw_response"]["document"] == f"{path.stem}.pdf"
         assert payload["blocks"]
+
+
+def test_path_evidence_does_not_ignore_a_missing_slash() -> None:
+    document = ExtractedDocument(
+        provider="test",
+        raw_response={"test": True},
+        blocks=(
+            ExtractedBlock(
+                block_id="ocr-page-1",
+                page=1,
+                text="Canonical operation: POST V2/changes.",
+            ),
+        ),
+    )
+
+    assert (
+        AssertionCompiler._find_evidence(
+            "Canonical operation: POST /v2/changes.", 1, document
+        )
+        is None
+    )

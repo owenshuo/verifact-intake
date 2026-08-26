@@ -253,7 +253,7 @@ DOCUMENTS = (
                 title="Create change",
                 paragraphs=(
                     "The create-change operation uses the POST method.",
-                    "The create-change relative path is /v2/changes.",
+                    'Canonical operation: <font name="Courier-Bold">POST /v2/changes</font>.',
                 ),
                 bullets=(
                     "The Idempotency-Key header is required.",

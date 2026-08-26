@@ -10,7 +10,7 @@
     {
       "block_id": "api-create",
       "page": 1,
-      "text": "The create-change operation uses the POST method. The create-change relative path is /v2/changes.",
+      "text": "The create-change operation uses the POST method. Canonical operation: POST /v2/changes.",
       "confidence": 0.99
     },
     {

@@ -14,7 +14,7 @@ Effective: 2026-07-15
 
 The create-change operation uses the `POST` method.
 
-The create-change relative path is `/v2/changes`.
+Canonical operation: `POST /v2/changes`.
 
 - Header `Idempotency-Key` is required.
 - Synchronous validation timeout is 30 seconds.

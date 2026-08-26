@@ -41,7 +41,7 @@
       "value": "/v2/changes",
       "source": "atlas-api-reference.pdf",
       "page": 1,
-      "quote": "The create-change relative path is /v2/changes.",
+      "quote": "Canonical operation: POST /v2/changes.",
       "confidence": 0.99,
       "authority": 95,
       "expected_status": "accepted"
