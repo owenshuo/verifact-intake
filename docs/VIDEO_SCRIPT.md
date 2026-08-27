@@ -1,60 +1,87 @@
-# Demo video script
+# Demo video script — v2
 
-Target length: 2 minutes 40 seconds. Use a 1920×1080 capture and keep the
-browser zoom at 100%.
+Target length: about 2 minutes 50 seconds. The final video is 1920×1080 with
+synthetic English narration and burned-in English subtitles. Every provider
+badge shown in the recording must match the actual run mode.
 
-## 0:00–0:18 — Problem
+## 0:00–0:17 — Evidence before action
 
-Show the hero and the three document cards.
+Show the hero after one fresh Nutrient DWS run. Keep the `LIVE DWS` badge and
+the four-stage trust pipeline visible.
 
-> Document AI can extract a statement, but it cannot silently decide that the
-> statement is business truth. These three documents deliberately disagree on
-> an API method, an approval rule, and evidence retention.
+> Can an operational agent act on a sentence just because a document parser
+> extracted it with high confidence? VeriFact says no. It turns documents into
+> operational facts only after evidence, authority, conflict, and promotion
+> gates have all agreed.
 
-## 0:18–0:38 — Nutrient DWS
+## 0:17–0:38 — Three sources, three disagreements
 
-Open one synthetic PDF, then return to the pipeline panel.
+Scroll from the three source cards into the trust-boundary section.
 
-> Nutrient DWS performs the core document operation, turning each PDF into
-> structured JSON content. VeriFact derives typed values from those blocks and
-> keeps the page, exact quote, and artifact hash as evidence rather than treating
-> parser output as authority.
+> These three public synthetic documents deliberately disagree about the HTTP
+> method, approval count, and evidence-retention period. Nutrient DWS converts
+> each PDF into structured content. VeriFact keeps every derived value attached
+> to its page, exact quote, artifact hash, and source authority.
 
-Show the `LIVE DWS` extraction-provider badge. The final recording must capture
-one budgeted `nutrient-dws-live` run, not represent cache or fixture replay as a
-fresh vendor call.
+## 0:38–0:59 — Measured trust difference
 
-## 0:38–1:00 — Intake
+Show all four benchmark cards and the result sentence.
 
-Choose **Run trusted intake** and scroll to the workspace.
+> The trust boundary is measured, not merely claimed. Across thirty
+> deterministic evidence variations, a confidence-only selector makes ninety
+> unreviewed conflict choices and picks the wrong value sixty times. VeriFact
+> detects all ninety conflicts and performs zero unsafe automatic promotions.
 
-> Twelve assertions were compiled. Five safe, high-authority claims became
-> effective facts. Three conflicts plus one business confirmation remain in the
-> review queue. Assertion is deliberately not the same thing as fact.
+## 0:59–1:19 — Intake and fail-closed agent gate
 
-## 1:00–1:45 — Review
+Show the five run counters, decision inbox, effective facts, and then the
+blocked downstream Agent gate.
 
-Resolve the method conflict with `POST`, confirm `Network Operations` as the
-business owner, choose `2` approvals, and select `180` retention days.
+> The live run compiles twelve assertions. Five safe, high-authority claims are
+> promoted automatically. Three conflicts and one ownership confirmation remain
+> open. The downstream agent receives no operation contract, because four
+> required ontology facts have not passed their promotion gates.
 
-> The reviewer sees every candidate beside its authority, extraction
-> confidence, document, and direct quote. Choosing one appends an approval for
-> that assertion and rejections for its incompatible competitors. Nothing is
-> overwritten. The queue reaches zero and nine evidence-linked facts remain.
+## 1:19–1:42 — Evidence-based review
 
-## 1:45–2:15 — Proof
+Show the method decision, ownership confirmation, approval count, and retention
+decision in sequence. Use the four real post-click states rather than a static
+overview.
 
-Show the growing fact list and audit events. Export the ontology JSON.
+> A reviewer compares candidate values beside authority, confidence, document,
+> and direct quote. We choose POST from the API contract, confirm Network
+> Operations as owner, require two approvals, and retain evidence for one
+> hundred eighty days. Decisions are appended; incompatible claims are rejected,
+> never overwritten.
 
-> Each promoted fact carries the assertion and evidence that justify it. The
-> append-only event ledger is hash chained, so changing prior history breaks
-> verification. The completed run contains seventeen replayable events. The
-> result is portable ontology data, not just a chat answer.
+## 1:42–2:22 — From BLOCKED to READY
 
-## 2:15–2:40 — Close
+Show the incremental review state, the cleared queue, nine promoted facts, and
+the complete READY contract.
 
-Return to the hero.
+> The review is visibly incremental. Each accepted claim reduces the open queue,
+> adds a versioned fact, and leaves the remaining uncertainty blocked. There is
+> no hidden bulk promotion and no mutable status field pretending that a claim
+> has always been true.
 
-> Nutrient answers what is in the document. VeriFact answers what is allowed to
-> become truth. Together they turn conflicting business material into trusted,
-> reviewable operational knowledge.
+> The queue reaches zero and nine versioned, evidence-linked facts remain. Only
+> now does the Agent gate release an evidence-qualified POST contract for the
+> change endpoint. The contract includes the service owner, approval rule,
+> retention period, eight fact versions, and their supporting assertion IDs—not
+> raw extracted guesses.
+
+## 2:22–2:39 — Replayable proof
+
+Hold on the READY contract and append-only audit ledger.
+
+> Every promotion and review is recorded in an append-only, hash-chained ledger.
+> Changing prior history breaks verification. The ontology export can therefore
+> be replayed and audited as operational knowledge, rather than trusted as a
+> one-time chat answer.
+
+## 2:39–2:50 — Close
+
+Return to the hero and finish on the trust invariant.
+
+> Nutrient answers what the documents contain. VeriFact decides what is allowed
+> to become truth—and what an Agent is finally allowed to do.

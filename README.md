@@ -42,7 +42,7 @@ execution gate. Before review, the gate refuses to issue an operation contract.
 After all required facts are promoted, it releases an evidence-qualified
 `POST /change-api/v2/changes` contract with approval, retention, and verification controls.
 
-**Demo video:** [watch the public 2:40 walkthrough](https://youtu.be/4BP6WnA3pnA).
+**Demo video:** [watch the public 2:50 walkthrough](https://youtu.be/I6F505D6CLI).
 The [written walkthrough](docs/DEMO.md) and
 [recording script](docs/VIDEO_SCRIPT.md) are also available.
 

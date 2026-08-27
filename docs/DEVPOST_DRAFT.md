@@ -125,7 +125,7 @@ MyPy, HTML, CSS, and JavaScript.
 
 ## Submission media
 
-- Public demo video: https://youtu.be/4BP6WnA3pnA
+- Public demo video: https://youtu.be/I6F505D6CLI
 - Public source repository: https://github.com/owenshuo/verifact-intake
 - Document AI versus VeriFact: `docs/assets/document-ai-vs-verifact.svg`
 - Hero and trust boundary: `docs/assets/verifact-hero.png`

@@ -8,7 +8,7 @@
 | Reproducible code | Docker Compose and fixture replay use the same downstream pipeline | Complete; Linux container smoke test passes in GitHub Actions |
 | Project description | Full Devpost draft and one-line DWS role | Complete locally |
 | Submission images | Hero, review inbox, resolved facts, and audit proof screenshots | Complete from a verified Fixture rehearsal |
-| Demo video | Timed 2:40 walkthrough covering problem, DWS, four reviews, and proof | [Published publicly on YouTube](https://youtu.be/4BP6WnA3pnA) |
+| Demo video | Timed 2:50 walkthrough covering problem, DWS, four reviews, and proof | [Published publicly on YouTube](https://youtu.be/I6F505D6CLI) |
 | Source access | New repository has clean history and public-safety gate | Public at `owenshuo/verifact-intake`; CI passes |
 | Final submission | Public Devpost project, repository, video, backup video, and thumbnail | Submitted and verified on August 27, 2026 |
 
