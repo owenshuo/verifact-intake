@@ -17,6 +17,14 @@ from verifact_intake.adapters.nutrient import (
     NutrientExtractionError,
 )
 from verifact_intake.adapters.sqlite_repository import SQLiteRunRepository
+from verifact_intake.application.agent_gate import (
+    AgentExecutionGate,
+    build_agent_execution_gate,
+)
+from verifact_intake.application.benchmark import (
+    TrustBenchmarkReport,
+    run_synthetic_trust_benchmark,
+)
 from verifact_intake.application.service import (
     IntakeService,
     InvalidReviewError,
@@ -95,6 +103,16 @@ def get_service() -> IntakeService:
 
 Service = Annotated[IntakeService, Depends(get_service)]
 
+
+@lru_cache
+def get_benchmark_report() -> TrustBenchmarkReport:
+    return run_synthetic_trust_benchmark(
+        profile_path=SYNTHETIC / "profiles" / "atlas-change-service-v1.json",
+        fixture_dir=SYNTHETIC / "fixtures",
+        pdf_dir=ROOT / "output" / "pdf",
+        golden_path=SYNTHETIC / "golden" / "expected-run.json",
+    )
+
 app = FastAPI(
     title="VeriFact Intake",
     version=__version__,
@@ -130,6 +148,15 @@ async def create_demo_run(service: Service) -> IntakeRun:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
+@app.get(
+    "/api/demo/benchmark",
+    response_model=TrustBenchmarkReport,
+    tags=["evaluation"],
+)
+def get_trust_benchmark() -> TrustBenchmarkReport:
+    return get_benchmark_report()
+
+
 @app.get("/api/runs", response_model=list[RunSummary], tags=["intake"])
 def list_runs(service: Service) -> list[RunSummary]:
     return [RunSummary.from_run(run) for run in service.list_runs()]
@@ -141,6 +168,19 @@ def get_run(run_id: UUID, service: Service) -> IntakeRun:
         return service.get_run(run_id)
     except RunNotFoundError as exc:
         raise HTTPException(status_code=404, detail="Run not found") from exc
+
+
+@app.get(
+    "/api/runs/{run_id}/agent-gate",
+    response_model=AgentExecutionGate,
+    tags=["agent-safety"],
+)
+def get_agent_gate(run_id: UUID, service: Service) -> AgentExecutionGate:
+    try:
+        run = service.get_run(run_id)
+    except RunNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Run not found") from exc
+    return build_agent_execution_gate(run)
 
 
 @app.post("/api/runs/{run_id}/reviews", response_model=IntakeRun, tags=["review"])

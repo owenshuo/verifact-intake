@@ -10,7 +10,7 @@
 | Submission images | Hero, review inbox, resolved facts, and audit proof screenshots | Complete from a verified Fixture rehearsal |
 | Demo video | Timed 2:40 walkthrough covering problem, DWS, four reviews, and proof | [Published publicly on YouTube](https://youtu.be/4BP6WnA3pnA) |
 | Source access | New repository has clean history and public-safety gate | Public at `owenshuo/verifact-intake`; CI passes |
-| Final submission | Draft exists on Devpost | External form completion pending |
+| Final submission | Public Devpost project, repository, video, backup video, and thumbnail | Submitted and verified on August 27, 2026 |
 
 The runtime assertion profile contains evidence patterns, types, and source
 authority but no expected values or quotes. Golden expected results are isolated
@@ -26,7 +26,8 @@ to tests, so fixture replay cannot inject prewritten ontology facts.
   process budget, and non-retrying HTTP 402 handling are implemented and tested.
 - The UI identifies fresh Live DWS, DWS cache replay, and fixture replay separately.
 
-## Submission blockers
+## Post-submission enhancements
 
-1. Add the repository and video links to Devpost.
-2. Verify the rendered entry and complete the final submission.
+- The public demo now includes a 30-case deterministic trust benchmark.
+- A downstream agent gate demonstrates fail-closed behavior before review and emits
+  an evidence-qualified operation contract only after every required fact is promoted.

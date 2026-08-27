@@ -38,6 +38,19 @@ async def test_api_exposes_intake_review_and_evidence_export(tmp_path: Path) -> 
             assert len(run["assertions"]) == 12
             assert len(run["conflicts"]) == 3
 
+            benchmark_response = await client.get("/api/demo/benchmark")
+            benchmark = benchmark_response.json()
+            assert benchmark_response.status_code == 200
+            assert benchmark["cases"] == 30
+            assert benchmark["confidence_baseline"]["unsafe_conflict_choices"] == 90
+            assert benchmark["verifact"]["unsafe_auto_promotions"] == 0
+
+            gate_response = await client.get(f"/api/runs/{run['id']}/agent-gate")
+            gate = gate_response.json()
+            assert gate_response.status_code == 200
+            assert gate["status"] == "blocked"
+            assert len(gate["missing_fact_keys"]) == 4
+
             export_response = await client.get(f"/api/runs/{run['id']}/export")
             export = export_response.json()
             assert export_response.status_code == 200

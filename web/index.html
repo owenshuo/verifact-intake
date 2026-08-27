@@ -101,6 +101,26 @@
         </div>
       </section>
 
+      <section class="benchmark-section" id="benchmark">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MEASURED TRUST DIFFERENCE</p>
+            <h2>Conflict safety, not confidence theater.</h2>
+          </div>
+          <p>
+            Deterministic evidence variations compare a confidence-only selector with the
+            same trust and promotion policies used by the live workspace.
+          </p>
+        </div>
+        <div class="benchmark-grid" aria-live="polite">
+          <div class="benchmark-card"><span>Evidence variants</span><strong id="benchmark-cases">—</strong><small>repeatable cases</small></div>
+          <div class="benchmark-card danger"><span>Confidence-only</span><strong id="baseline-unsafe">—</strong><small>unreviewed conflict choices</small></div>
+          <div class="benchmark-card good"><span>VeriFact</span><strong id="verifact-unsafe">—</strong><small>unsafe auto-promotions</small></div>
+          <div class="benchmark-card good"><span>Conflict recall</span><strong id="conflict-recall">—</strong><small>expected conflicts detected</small></div>
+        </div>
+        <p class="benchmark-note" id="benchmark-note">Loading the checked-in trust benchmark…</p>
+      </section>
+
       <section class="workspace" id="workspace" aria-live="polite">
         <div class="workspace-head">
           <div>
@@ -139,6 +159,14 @@
               <div class="facts-list" id="facts-list"></div>
             </section>
           </div>
+
+          <section class="panel agent-panel">
+            <div class="panel-head">
+              <div><span>DOWNSTREAM AGENT SAFETY</span><h3>Trusted execution gate</h3></div>
+              <span class="gate-badge" id="agent-gate-status" data-status="blocked">BLOCKED</span>
+            </div>
+            <div class="agent-gate-body" id="agent-gate-body"></div>
+          </section>
 
           <section class="panel audit-panel">
             <div class="panel-head">

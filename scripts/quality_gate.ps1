@@ -10,3 +10,5 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 & .\.venv\Scripts\python.exe scripts\validate_demo.py
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+& .\.venv\Scripts\python.exe scripts\run_trust_benchmark.py
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

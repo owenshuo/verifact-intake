@@ -37,6 +37,13 @@ Every decision is appended rather than overwritten. Every effective fact is
 versioned and names the assertions that justify it. The final ontology export
 includes page-level evidence and a verifiable hash-chained audit head.
 
+A checked-in 30-case benchmark measures the trust boundary rather than merely
+describing it. A confidence-only selector makes 90 unreviewed conflict choices
+and selects the wrong value 60 times. VeriFact detects all 90 expected conflicts,
+automatically promotes none of them, and reaches 100% expected-fact accuracy after
+gated review. A downstream agent gate then refuses to issue an operation contract
+until every required fact is promoted.
+
 ## How we built it
 
 - FastAPI provides the intake, review, run history, and ontology export API.
@@ -50,6 +57,10 @@ includes page-level evidence and a verifiable hash-chained audit head.
 - Deterministic trust and promotion policies keep `Assertion != EffectiveFact`.
 - SQLite stores the run projection and rejects mutation of review and audit records with triggers.
 - A dependency-free browser UI makes the trust decisions inspectable.
+- A deterministic benchmark reuses the production compiler, trust policy, and
+  promotion policy across 30 evidence variations.
+- A downstream agent gate converts eight versioned effective facts into an
+  evidence-qualified operation contract and fails closed on missing or invalid facts.
 - Docker Compose, CI, strict typing, tests, golden evidence, and a public-safety scanner make the demo reproducible.
 
 ## Meaningful use of Nutrient DWS
@@ -82,6 +93,8 @@ downstream code is shared, and the UI labels live, cached, and fixture runs.
 - Values derived from extracted blocks rather than copied from the golden test oracle.
 - Public synthetic documents, an isolated golden expected-run benchmark, and
   one-command reproducibility.
+- Quantified evidence that confidence-only selection is unsafe on unresolved conflicts.
+- A visible blocked-to-ready agent contract transition driven only by reviewed facts.
 
 ## What we learned
 
@@ -119,3 +132,6 @@ MyPy, HTML, CSS, and JavaScript.
 - Evidence comparison and decision inbox: `docs/assets/verifact-review-workspace.png`
 - Cleared review queue and promoted facts: `docs/assets/verifact-resolved-proof.png`
 - Verified append-only audit ledger: `docs/assets/verifact-audit-proof.png`
+- Measured 30-case trust benchmark: `docs/assets/verifact-trust-benchmark.png`
+- Evidence-qualified downstream agent contract: `docs/assets/verifact-agent-gate-ready.png`
+- Trust benchmark methodology: `docs/BENCHMARK.md`

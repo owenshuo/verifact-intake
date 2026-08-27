@@ -9,6 +9,11 @@ disagree on the HTTP method, approval count, and retention period. The
 operations guide is older and less authoritative than the API reference and
 quality policy.
 
+The measured-trust section summarizes 30 deterministic evidence variations. A
+confidence-only selector makes 90 unreviewed conflict choices and selects the wrong
+value 60 times. VeriFact detects all 90 expected conflicts and automatically promotes
+none of them.
+
 ## 2. Run trusted intake
 
 Choose **Run trusted intake**. The application extracts three artifacts, derives
@@ -33,6 +38,10 @@ confidence, and direct quote. Select:
 Each choice appends approval and rejection decisions for that fact key. It does
 not overwrite the source assertion. After all four decisions, the queue reaches
 zero and the run contains nine effective facts.
+
+The downstream agent gate is visibly blocked before those decisions. When the final
+required fact is promoted, it releases an evidence-qualified operation contract with
+the method, full path, owner, approval count, retention rule, and supporting fact versions.
 
 ## 4. Inspect proof
 

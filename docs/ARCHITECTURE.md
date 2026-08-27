@@ -22,6 +22,10 @@ infrastructure that does not improve this demo.
    values, applies acceptance policy, and appends review decisions.
 5. **SQLite repository** — durable local demo state. It is authoritative for
    the demo; no graph database is required.
+6. **Trust benchmark** — deterministic evidence variations compare an unsafe
+   confidence-only selector with the production trust and promotion policies.
+7. **Downstream agent gate** — refuses to issue an operation contract until all
+   required facts have passed their promotion gates.
 
 SQLite stores a current run projection for fast reads and separate append-only
 tables for review decisions and audit events. Database triggers reject updates
@@ -66,6 +70,7 @@ Browser
         -> TrustPolicy             -> accepted / review_required / conflicted
         -> PromotionPolicy         -> EffectiveFact or unresolved
         -> SQLiteRunRepository     -> projection + append-only proof records
+     -> AgentExecutionGate         -> blocked or evidence-qualified contract
 ```
 
 The fixture mode is not a second implementation. It replays checked-in

@@ -135,6 +135,43 @@ function renderAudit(run) {
   `).join("");
 }
 
+function renderAgentGate(gate) {
+  const badge = $("#agent-gate-status");
+  badge.dataset.status = gate.status;
+  badge.textContent = gate.status.toUpperCase();
+  if (gate.status === "blocked") {
+    const missing = gate.missing_fact_keys.map((key) =>
+      `<code>${escapeHtml(key)}</code>`
+    ).join("");
+    $("#agent-gate-body").innerHTML = `
+      <div class="gate-copy">
+        <strong>No operation contract will be issued.</strong>
+        <p>${escapeHtml(gate.reason)}</p>
+      </div>
+      <div class="missing-facts">${missing}</div>
+    `;
+    return;
+  }
+
+  const contract = gate.contract;
+  $("#agent-gate-body").innerHTML = `
+    <div class="gate-copy ready-copy">
+      <strong>Evidence-qualified contract issued.</strong>
+      <p>${escapeHtml(gate.reason)} The downstream agent receives values, fact versions, and supporting assertion IDs—not raw extracted guesses.</p>
+    </div>
+    <div class="contract-command">
+      <span>${escapeHtml(contract.method)}</span>
+      <code>${escapeHtml(contract.path)}</code>
+    </div>
+    <div class="contract-grid">
+      <div><span>Service owner</span><strong>${escapeHtml(contract.service_owner)}</strong></div>
+      <div><span>Approvals</span><strong>${contract.approval_required_count}</strong></div>
+      <div><span>Evidence retention</span><strong>${contract.evidence_retention_days} days</strong></div>
+      <div><span>Control proof</span><strong>${contract.evidence.length} versioned facts</strong></div>
+    </div>
+  `;
+}
+
 function providerPresentation(provider) {
   if (provider.includes("nutrient-dws-live")) {
     return ["LIVE DWS", "Fresh Nutrient extraction · billable request completed", "live"];
@@ -160,8 +197,26 @@ async function renderRun(run) {
   renderReviews(run);
   renderFacts(run);
   renderAudit(run);
-  const exported = await request(`/api/runs/${run.id}/export`);
+  const [exported, agentGate] = await Promise.all([
+    request(`/api/runs/${run.id}/export`),
+    request(`/api/runs/${run.id}/agent-gate`),
+  ]);
   $("#audit-status").textContent = exported.audit.verified ? "✓ chain verified" : "chain invalid";
+  renderAgentGate(agentGate);
+}
+
+async function loadBenchmark() {
+  try {
+    const report = await request("/api/demo/benchmark");
+    $("#benchmark-cases").textContent = report.cases;
+    $("#baseline-unsafe").textContent = report.confidence_baseline.unsafe_conflict_choices;
+    $("#verifact-unsafe").textContent = report.verifact.unsafe_auto_promotions;
+    $("#conflict-recall").textContent = `${(report.verifact.conflict_recall * 100).toFixed(0)}%`;
+    $("#benchmark-note").textContent =
+      `${report.confidence_baseline.wrong_conflict_values} of ${report.confidence_baseline.conflict_choices} confidence-only conflict choices used the wrong value. After gated review, VeriFact reached ${(report.verifact.final_fact_accuracy * 100).toFixed(0)}% expected-fact accuracy with ${(report.verifact.evidence_coverage * 100).toFixed(0)}% evidence coverage.`;
+  } catch (error) {
+    $("#benchmark-note").textContent = `Benchmark unavailable: ${error.message}`;
+  }
 }
 
 async function createRun() {
@@ -226,4 +281,5 @@ $("#review-list").addEventListener("click", (event) => {
   if (button) reviewAssertion(button.dataset.reviewId, button);
 });
 
+loadBenchmark();
 loadLatestRun();

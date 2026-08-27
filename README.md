@@ -37,6 +37,11 @@ Open <http://localhost:8080>, choose **Run trusted intake**, resolve the four
 review items, and export the resulting ontology. No API key is required for the
 default replayable fixture run.
 
+The page also shows a checked-in 30-case trust benchmark and a downstream agent
+execution gate. Before review, the gate refuses to issue an operation contract.
+After all required facts are promoted, it releases an evidence-qualified
+`POST /change-api/v2/changes` contract with approval, retention, and verification controls.
+
 **Demo video:** [watch the public 2:40 walkthrough](https://youtu.be/4BP6WnA3pnA).
 The [written walkthrough](docs/DEMO.md) and
 [recording script](docs/VIDEO_SCRIPT.md) are also available.
@@ -84,6 +89,10 @@ evidence and promotion history.
 
 ![Verified append-only audit ledger](docs/assets/verifact-audit-proof.png)
 
+| Measured trust boundary | Evidence-qualified agent contract |
+| --- | --- |
+| ![Thirty-case benchmark with conflict recall and promotion safety metrics](docs/assets/verifact-trust-benchmark.png) | ![Downstream agent execution gate ready with eight versioned facts](docs/assets/verifact-agent-gate-ready.png) |
+
 ## What works now
 
 - Three generated, public-safe PDFs form a reproducible conflict benchmark.
@@ -102,6 +111,10 @@ evidence and promotion history.
 - The browser demo, tests, CI, public-safety scan, and Docker startup are included.
 - The runtime profile contains extraction rules and authority metadata, while a
   separate golden expected-run file acts only as a regression oracle.
+- A 30-case deterministic trust benchmark detects 90/90 expected conflicts, records
+  zero unsafe auto-promotions, and reaches 100% expected-fact accuracy after review.
+- A downstream agent execution gate remains blocked until all eight required ontology
+  facts have passed promotion, then returns a versioned evidence-qualified contract.
 
 The default mode is a fully replayable fixture run so judges can reproduce the
 story without credentials. Nutrient mode reads a validated DWS response cache
@@ -125,6 +138,7 @@ Copy `.env.example` to `.env` for local settings. Secrets belong in `.env` or
 Useful project guides:
 
 - [Demo walkthrough](docs/DEMO.md)
+- [Measured trust benchmark](docs/BENCHMARK.md)
 - [Nutrient DWS integration](docs/NUTRIENT_DWS.md)
 - [Architecture and trust invariants](docs/ARCHITECTURE.md)
 - [Security policy](SECURITY.md)
